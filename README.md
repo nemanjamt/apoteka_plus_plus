@@ -5,7 +5,7 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 ## Funkcionalnosti
 
 ### Neregistrovani korisnik<br>
-*prijava na sistem
+* prijava na sistem
 <br>pretraga, filtriranje i sortiranje proizvoda 
 
 ### Registrovani korisnik<br>
