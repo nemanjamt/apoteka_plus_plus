@@ -30,6 +30,7 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 * pregled profila korisnika<br>
 * izvjestaji o poslovanju - generise se graficki prikaz prihoda, ukupan prihod i prosjecan prihod na osnovu izabranog vremenskog perioda <br>
 * uvid u istorije porudzbina za svakog korisnika<br>
+* pregled prijavljenih recenzija <br>
 * blokiranje korisnika uz slanje obrazlozenja na mejl<br>
 * pregled prijavljenih recenzija<br>
 * uklanjanje recenzije<br>
