@@ -3,11 +3,11 @@
 
 ##Funkcionalnosti
 
-#Neregistrovani korisnik
+#Neregistrovani korisnik<br>
 <br>prijava na sistem
 <br>pretraga, filtriranje i sortiranje proizvoda 
 
-Registrovani korisnik
+Registrovani korisnik<br>
 pregled profila i izmjena podataka<br>
 pretraga, filtriranje i sortiranje proizvoda<br>
 porucivanje proizvoda<br>
@@ -15,7 +15,7 @@ pregled istorije porudzbina<br>
 otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status<br>
 ostavljanje recenzije na proizvod - samo onaj koji je barem jednom porucio <br>
 
-Apotekar
+Apotekar<br>
 pregled profila i izmjena podataka<br>
 dodavanje, izmjena i brisanje proizvoda<br>
 mijenjanje statusa porudzbine<br>
