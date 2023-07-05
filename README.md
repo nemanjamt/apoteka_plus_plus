@@ -5,44 +5,44 @@
 
 #Neregistrovani korisnik
 <br>prijava na sistem
-pretraga, filtriranje i sortiranje proizvoda 
+<br>pretraga, filtriranje i sortiranje proizvoda 
 
 Registrovani korisnik
-pregled profila i izmjena podataka
-pretraga, filtriranje i sortiranje proizvoda
-porucivanje proizvoda
-pregled istorije porudzbina
-otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status
-ostavljanje recenzije na proizvod - samo onaj koji je barem jednom porucio 
+pregled profila i izmjena podataka<br>
+pretraga, filtriranje i sortiranje proizvoda<br>
+porucivanje proizvoda<br>
+pregled istorije porudzbina<br>
+otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status<br>
+ostavljanje recenzije na proizvod - samo onaj koji je barem jednom porucio <br>
 
 Apotekar
-pregled profila i izmjena podataka
-dodavanje, izmjena i brisanje proizvoda
-mijenjanje statusa porudzbine
-prijavljivanje recenzije
+pregled profila i izmjena podataka<br>
+dodavanje, izmjena i brisanje proizvoda<br>
+mijenjanje statusa porudzbine<br>
+prijavljivanje recenzije<br>
 
 Administrator
-pregled i izmjena profila
-dodavanje novog apotekara
-pregled svih apotekara
-uklanjanje apotekara
-pregled profila korisnika
-izvjestaji o poslovanju - generise se graficki prikaz prihoda, ukupan prihod i prosjecan prihod na osnovu izabranog vremenskog perioda 
-uvid u istorije porudzbina za svakog korisnika
-blokiranje korisnika uz slanje obrazlozenja na mejl
-pregled prijavljenih recenzija
-uklanjanje recenzije
+pregled i izmjena profila<br>
+dodavanje novog apotekara<br>
+pregled svih apotekara<br>
+uklanjanje apotekara<br>
+pregled profila korisnika<br>
+izvjestaji o poslovanju - generise se graficki prikaz prihoda, ukupan prihod i prosjecan prihod na osnovu izabranog vremenskog perioda <br>
+uvid u istorije porudzbina za svakog korisnika<br>
+blokiranje korisnika uz slanje obrazlozenja na mejl<br>
+pregled prijavljenih recenzija<br>
+uklanjanje recenzije<br>
 
 
-Arhitektura sistema:
-API Gateway - rust
-Mikroservis za korisnike  - CRUD korisnika, autentifikacija - python(django/flask)
-Mikroservis za proizvode - rust
-Mikroservis za porudzbine - rust
-Mikroservis za recenzije - python
-Mikroservis za izvjestaje - rust
-Klijentska veb aplikacija - angular
-Baza podataka - PostgreSQL
+Arhitektura sistema:<br>
+API Gateway - rust<br>
+Mikroservis za korisnike  - CRUD korisnika, autentifikacija - python(django/flask)<br>
+Mikroservis za proizvode - rust<br>
+Mikroservis za porudzbine - rust<br>
+Mikroservis za recenzije - python<br>
+Mikroservis za izvjestaje - rust<br>
+Klijentska veb aplikacija - angular<br>
+Baza podataka - PostgreSQL<br>
 
-Napomena:
-Izbor jezika za implementaciju mikroservisa jos uvijek nije konačan.
+Napomena:<br>
+Izbor jezika za implementaciju mikroservisa jos uvijek nije konačan.<br>
