@@ -1,14 +1,11 @@
 
-# Apoteka
-
-## Namjena sistema 
-
-Sistem je namjenjen za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke.
+# APOTEKA++
+Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasnovana na mikroservisnoj arhitekturi.
 
 ## Funkcionalnosti
 
 ### Neregistrovani korisnik<br>
-<br>prijava na sistem
+*prijava na sistem
 <br>pretraga, filtriranje i sortiranje proizvoda 
 
 ### Registrovani korisnik<br>
