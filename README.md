@@ -42,8 +42,12 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 * Mikroservis za porudzbine - rust<br>
 * Mikroservis za recenzije - python<br>
 * Mikroservis za izvjestaje - rust<br>
+* Mikroservis za slanje mejlova - python <br>
 * Klijentska veb aplikacija - angular<br>
-* Baza podataka - PostgreSQL<br>
+* Baza podataka - PostgreSQL <br>
 
 Napomena:<br>
 Izbor jezika za implementaciju mikroservisa jos uvijek nije konačan.<br>
+Uglavnom koristio bih rust i python, samo nije konacno sta je za koji mikroservis.
+Takođe nisam odredio da li da koristim django ili flask.
+
