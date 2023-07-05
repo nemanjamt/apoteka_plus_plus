@@ -4,7 +4,7 @@
 ##Funkcionalnosti
 
 #Neregistrovani korisnik
-prijava na sistem
+<br>prijava na sistem
 pretraga, filtriranje i sortiranje proizvoda 
 
 Registrovani korisnik
