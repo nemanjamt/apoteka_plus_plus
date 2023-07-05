@@ -1,9 +1,9 @@
 
-###Aplikacija za apoteku bazirana na mikroservisnoj arhitekturi
+### Aplikacija za apoteku bazirana na mikroservisnoj arhitekturi
 
-##Funkcionalnosti
+## Funkcionalnosti
 
-#Neregistrovani korisnik<br>
+# Neregistrovani korisnik<br>
 <br>prijava na sistem
 <br>pretraga, filtriranje i sortiranje proizvoda 
 
