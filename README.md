@@ -1,13 +1,13 @@
 
-### Aplikacija za apoteku bazirana na mikroservisnoj arhitekturi
+# Aplikacija za apoteku bazirana na mikroservisnoj arhitekturi
 
 ## Funkcionalnosti
 
-# Neregistrovani korisnik<br>
+### Neregistrovani korisnik<br>
 <br>prijava na sistem
 <br>pretraga, filtriranje i sortiranje proizvoda 
 
-Registrovani korisnik<br>
+### Registrovani korisnik<br>
 pregled profila i izmjena podataka<br>
 pretraga, filtriranje i sortiranje proizvoda<br>
 porucivanje proizvoda<br>
@@ -15,13 +15,13 @@ pregled istorije porudzbina<br>
 otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status<br>
 ostavljanje recenzije na proizvod - samo onaj koji je barem jednom porucio <br>
 
-Apotekar<br>
+### Apotekar<br>
 pregled profila i izmjena podataka<br>
 dodavanje, izmjena i brisanje proizvoda<br>
 mijenjanje statusa porudzbine<br>
 prijavljivanje recenzije<br>
 
-Administrator
+### Administrator
 pregled i izmjena profila<br>
 dodavanje novog apotekara<br>
 pregled svih apotekara<br>
@@ -34,7 +34,7 @@ pregled prijavljenih recenzija<br>
 uklanjanje recenzije<br>
 
 
-Arhitektura sistema:<br>
+## Arhitektura sistema:<br>
 API Gateway - rust<br>
 Mikroservis za korisnike  - CRUD korisnika, autentifikacija - python(django/flask)<br>
 Mikroservis za proizvode - rust<br>
