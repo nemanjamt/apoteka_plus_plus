@@ -1,5 +1,9 @@
 
-# Aplikacija za apoteku bazirana na mikroservisnoj arhitekturi
+# Apoteka
+
+## Namjena sistema 
+
+Sistem je namjenjen za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke.
 
 ## Funkcionalnosti
 
