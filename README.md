@@ -48,6 +48,6 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 
 Napomena:<br>
 Izbor jezika za implementaciju mikroservisa jos uvijek nije konačan.<br>
-Uglavnom koristio bih rust i python, samo nije konacno sta je za koji mikroservis.
-Takođe nisam odredio da li da koristim django ili flask.
+Uglavnom koristio bih rust i python, samo nije konacno sta je za koji mikroservis.;br:
+Takođe nisam odredio da li da koristim django ili flask za razvoj mikroservisa u pythonu.
 
