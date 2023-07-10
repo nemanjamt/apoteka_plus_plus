@@ -38,10 +38,10 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 
 ## Arhitektura sistema:<br>
 * API Gateway - python<br>
-* Mikroservis za korisnike  - CRUD korisnika, autentifikacija, autorizacija - python - <br>
+* Mikroservis za korisnike  - CRUD korisnika, autentifikacija, autorizacija - python  <br>
 * Mikroservis za proizvode - rust<br>
 * Mikroservis za porudzbine - rust<br>
-* Mikroservis za recenzije - python<br>
+* Mikroservis za recenzije - rust<br>
 * Mikroservis za izvjestaje - rust<br>
 * Mikroservis za slanje mejlova - python <br>
 * Klijentska veb aplikacija - angular<br>
