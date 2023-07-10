@@ -37,8 +37,8 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 
 
 ## Arhitektura sistema:<br>
-* API Gateway - rust<br>
-* Mikroservis za korisnike  - CRUD korisnika, autentifikacija - python(django/flask)<br>
+* API Gateway - python<br>
+* Mikroservis za korisnike  - CRUD korisnika, autentifikacija, autorizacija - python - <br>
 * Mikroservis za proizvode - rust<br>
 * Mikroservis za porudzbine - rust<br>
 * Mikroservis za recenzije - python<br>
@@ -48,7 +48,5 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 * Baza podataka - PostgreSQL <br>
 
 Napomena:<br>
-Izbor jezika za implementaciju mikroservisa jos uvijek nije konačan.<br>
-Uglavnom koristio bih rust i python, samo nije konacno sta je za koji mikroservis.<br>
-Takođe nisam odredio da li da koristim django ili flask za razvoj mikroservisa u pythonu.
+Za razvoj mikroservisa u pythonu ce se koristiti flask.
 
