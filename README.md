@@ -6,6 +6,7 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 
 ### Neregistrovani korisnik<br>
 * prijava na sistem <br>
+* registracija na sistem <br>
 * pretraga, filtriranje i sortiranje proizvoda 
 
 ### Registrovani korisnik<br>
@@ -14,7 +15,7 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 * porucivanje proizvoda<br>
 * pregled istorije porudzbina<br>
 * otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status<br>
-* ostavljanje recenzije na proizvod - samo onaj koji je barem jednom porucio <br>
+* ostavljanje recenzije na proizvod (u okviru recenzije se unosi ocjena i komentar) - samo onaj koji je barem jednom porucio <br>
 
 ### Apotekar<br>
 * pregled profila i izmjena podataka<br>
