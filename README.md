@@ -1,6 +1,6 @@
 
 # APOTEKA++
-Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasnovana na mikroservisnoj arhitekturi.
+Veb aplikacija za pretraživanje, naručivanje i prodaju proizvoda iz apoteke zasnovana na mikroservisnoj arhitekturi.
 
 ## Funkcionalnosti
 
@@ -12,19 +12,19 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 ### Registrovani korisnik<br>
 * pregled profila i izmjena podataka<br>
 * pretraga, filtriranje i sortiranje proizvoda<br>
-* porucivanje proizvoda - može da odabere preuzimanje u apoteci ili dostavu na kućnu ili neku drugu navedenu adresu.<br> Ako je izabrano preuzimanje u apoteci, moguća su sledeća stanja porudžbine: <br>
+* poručivanje proizvoda - može da odabere preuzimanje u apoteci ili dostavu na kućnu ili neku drugu navedenu adresu.<br> Ako je izabrano preuzimanje u apoteci, moguća su sledeća stanja porudžbine: <br>
 KREIRANA - ODOBRENA - ODBIJENA - SPREMNA - OTKAZANA <br>
 Ako je izabrana dostava, moguća su sledeća stanja:<br>
 KREIRANA - ODOBRENA - ODBIJENA  - DOSTAVA U TOKU - DOSTAVLJENA - OTKAZANA
-* pregled istorije porudzbina<br>
-* otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status u "otkazana"<br>
-* ostavljanje recenzije na proizvod (u okviru recenzije se unosi ocjena i komentar) - samo onaj koji je barem jednom porucio <br>
+* pregled istorije porudžbina<br>
+* otkazivanje porudžbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status u "otkazana"<br>
+* ostavljanje recenzije na proizvod (u okviru recenzije se unosi ocjena i komentar) - samo onaj koji je barem jednom poručio <br>
 * ostavljanje recenzije za dostavljača
 
 ### Apotekar<br>
 * pregled profila i izmjena podataka<br>
 * dodavanje, izmjena i brisanje proizvoda<br>
-* mijenjanje statusa porudzbine - ukoliko je porudžbinu potrebno dostaviti, čitav taj proces je sledeći:<br>
+* mijenjanje statusa porudžbine - ukoliko je porudžbinu potrebno dostaviti, čitav taj proces je sledeći:<br>
 Apotekar promijeni status porudžbine u "odobrena" i čeka prijave dostavljača. Kada se dostavljači prijave za dostavu, apotekar bira jednog od prijavljenih.
 Nakon toga porudžbina prelazi u status "DOSTAVA U TOKU".
 Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti status iste, ponovo u "odobreno", kako bi ponovo bila vidljiva ostalim dostavljačima i kako bi se neko od njih mogao prijaviti.<br>
@@ -34,7 +34,7 @@ Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti s
 ### Dostavljač <br>
 * pregled aktivnih porudžbina - može da izabere za dostavu i čeka potvrdu apotekara. Kada apotekar potvrdi da je on dostavljač, ima mogućnost ažuriranja porudžbine u stanje preuzeto, a nakon obavljene dostave porudžbinu prebacuje u stanje dostavljeno.
 * pregled istorije svojih porudžbina
-* mijenjanje statusa porudzbine - moze promijeniti status porudzbine u "dostavljeno"
+* mijenjanje statusa porudzbine - može promijeniti status porudžbine u "dostavljeno"
 * uvid u recenzije o sebi i mogućnost da prijavi istu
 
 ### Administrator
@@ -44,21 +44,21 @@ Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti s
 * uklanjanje apotekara<br>
 * CRUD dostavljača
 * pregled profila korisnika<br>
-* izvjestaji o poslovanju - generise se graficki prikaz prihoda, ukupan prihod i prosjecan prihod na osnovu izabranog vremenskog perioda <br>
-* uvid u istorije porudzbina za svakog korisnika<br>
-* uvid u istoriju dostava za svakog dostavljaca <br>
-* pregled prijavljenih recenzija za dostavljaca <br>
-* blokiranje korisnika uz slanje obrazlozenja na mejl<br>
+* izvjestaji o poslovanju - generiše se grafički prikaz prihoda, ukupan prihod i prosječan prihod na osnovu izabranog vremenskog perioda <br>
+* uvid u istorije porudžbina za svakog korisnika<br>
+* uvid u istoriju dostava za svakog dostavljača <br>
+* pregled prijavljenih recenzija za dostavljača <br>
+* blokiranje korisnika uz slanje obrazloženja na mejl<br>
 * pregled prijavljenih recenzija za proizvod <br>
 * uklanjanje recenzije za proizvod <br>
-* uklanjanje recenzije za dostavljaca
+* uklanjanje recenzije za dostavljača
 
 
 ## Arhitektura sistema:<br>
 * API Gateway - python<br>
 * Mikroservis za korisnike  - CRUD korisnika, autentifikacija, autorizacija - python  <br>
 * Mikroservis za proizvode - rust<br>
-* Mikroservis za porudzbine - rust<br>
+* Mikroservis za porudžbine - rust<br>
 * Mikroservis za recenzije - rust<br>
 * Mikroservis za izvjestaje - rust<br>
 * Mikroservis za slanje mejlova - python <br>
@@ -66,5 +66,5 @@ Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti s
 * Baza podataka - PostgreSQL <br>
 
 Napomena:<br>
-Za razvoj mikroservisa u pythonu ce se koristiti flask.
+Za razvoj mikroservisa u pythonu će se koristiti flask.
 
