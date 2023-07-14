@@ -17,7 +17,7 @@ KREIRANA - ODOBRENA - ODBIJENA - SPREMNA - OTKAZANA <br>
 Ako je izabrana dostava, moguća su sledeća stanja:<br>
 KREIRANA - ODOBRENA - ODBIJENA  - DOSTAVA U TOKU - DOSTAVLJENA - OTKAZANA
 * pregled istorije porudzbina<br>
-* otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status<br>
+* otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status u "otkazana"<br>
 * ostavljanje recenzije na proizvod (u okviru recenzije se unosi ocjena i komentar) - samo onaj koji je barem jednom porucio <br>
 * ostavljanje recenzije za dostavljača
 
