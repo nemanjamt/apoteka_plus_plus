@@ -12,7 +12,7 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 ### Registrovani korisnik<br>
 * pregled profila i izmjena podataka<br>
 * pretraga, filtriranje i sortiranje proizvoda<br>
-* porucivanje proizvoda - može da odabere preuzimanje u apoteci ili dostavu na kućnu adresu.<br> Ako je izabrano preuzimanje u apoteci, moguća su sledeća stanja porudžbine: <br>
+* porucivanje proizvoda - može da odabere preuzimanje u apoteci ili dostavu na kućnu ili neku drugu navedenu adresu.<br> Ako je izabrano preuzimanje u apoteci, moguća su sledeća stanja porudžbine: <br>
 KREIRANA - ODOBRENA - ODBIJENA - SPREMNA - OTKAZANA <br>
 Ako je izabrana dostava, moguća su sledeća stanja:<br>
 KREIRANA - ODOBRENA - ODBIJENA  - DOSTAVA U TOKU - DOSTAVLJENA - OTKAZANA
