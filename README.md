@@ -15,7 +15,7 @@ Veb aplikacija za pretrazivanje, narucivanje i prodaju proizvoda iz apoteke zasn
 * porucivanje proizvoda - može da odabere preuzimanje u apoteci ili dostavu na kućnu adresu.<br> Ako je izabrano preuzimanje u apoteci, moguća su sledeća stanja porudžbine: <br>
 KREIRANA - ODOBRENA - ODBIJENA - SPREMNA - OTKAZANA <br>
 Ako je izabrana dostava, moguća su sledeća stanja:<br>
-KREIRANA - ODOBRENA - ODBIJENA - PREDATA DOSTAVLJAČU - DOSTAVLJENA - OTKAZANA
+KREIRANA - ODOBRENA - ODBIJENA  - DOSTAVA U TOKU - DOSTAVLJENA - OTKAZANA
 * pregled istorije porudzbina<br>
 * otkazivanje porudzbine - moze se izvrsiti samo ukoliko je status porudzbine "KREIRANA", u suprotnom jedino apotekar moze promijeniti status<br>
 * ostavljanje recenzije na proizvod (u okviru recenzije se unosi ocjena i komentar) - samo onaj koji je barem jednom porucio <br>
@@ -26,14 +26,15 @@ KREIRANA - ODOBRENA - ODBIJENA - PREDATA DOSTAVLJAČU - DOSTAVLJENA - OTKAZANA
 * dodavanje, izmjena i brisanje proizvoda<br>
 * mijenjanje statusa porudzbine - ukoliko je porudžbinu potrebno dostaviti, čitav taj proces je sledeći:<br>
 Apotekar promijeni status porudžbine u "odobrena" i čeka prijave dostavljača. Kada se dostavljači prijave za dostavu, apotekar bira jednog od prijavljenih.
-Nakon toga porudžbina prelazi u status "PREDATA DOSTAVLJAČU".
-Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti status iste, ponovo u "odobreno" kako bi ponovo bila vidljiva ostalim dostavljačima i kako bi se neko od njih mogao prijaviti.<br>
+Nakon toga porudžbina prelazi u status "DOSTAVA U TOKU".
+Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti status iste, ponovo u "odobreno", kako bi ponovo bila vidljiva ostalim dostavljačima i kako bi se neko od njih mogao prijaviti.<br>
 * prijavljivanje recenzije <br>
 * dodjeljivanje dostavljača (koji se prethodno prijavio za istu) za porudžbinu - moguće je da se više dostavljača prijavi za neku porudžbinu, ali apotekar bira samo jednog
 
 ### Dostavljač <br>
 * pregled aktivnih porudžbina - može da izabere za dostavu i čeka potvrdu apotekara. Kada apotekar potvrdi da je on dostavljač, ima mogućnost ažuriranja porudžbine u stanje preuzeto, a nakon obavljene dostave porudžbinu prebacuje u stanje dostavljeno.
 * pregled istorije svojih porudžbina
+* mijenjanje statusa porudzbine - moze promijeniti status porudzbine u "dostavljeno"
 * uvid u recenzije o sebi i mogućnost da prijavi istu
 
 ### Administrator
