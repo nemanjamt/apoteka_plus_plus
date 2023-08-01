@@ -1,6 +1,8 @@
 from flask import request
+from flask_jwt_extended import jwt_required
 
 from app import app
+from decorators.auth import role_required
 from services import user as user_service
 
 schema = {
@@ -22,6 +24,7 @@ def users():
 
 
 @app.route("/users/<int:user_id>", methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def users_by_id(user_id):
     if request.method == 'PUT':
         return user_service.change_user(user_id)

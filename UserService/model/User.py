@@ -9,13 +9,15 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(50))
     deleted = db.Column(db.Boolean, default=False)
+    role = db.Column(db.String(20), default="CUSTOMER")
 
-    def __init__(self, first_name, last_name, email, username, password):
+    def __init__(self, first_name, last_name, email, username, password, role):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.username = username
         self.password = password
+        self.role = role
 
     def __repr__(self):
         return f'User {self.first_name} {self.last_name} - username:{self.username} email:{self.email} password: {self.password}'

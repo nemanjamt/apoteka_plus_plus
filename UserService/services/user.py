@@ -1,11 +1,15 @@
 import re
 
+import jwt
 from flask import request, make_response, jsonify
 from flask_expects_json import expects_json
+from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request,  get_jwt
 from jsonschema.exceptions import ValidationError
 
 from app import app
+from decorators.auth import role_required
 from model.User import User
+from services.response_helper import generate_response
 
 create_user_schema = {
     "type": "object",
@@ -14,9 +18,10 @@ create_user_schema = {
         "last_name": {"type": "string", "minLength": 2, "maxLength": 80},
         "username": {"type": "string", "minLength": 3, "maxLength": 20},
         "email": {"type": "string", "format": "email"},
-        "password": {"type": "string", "minLength": 6, "maxLength": 80}
+        "password": {"type": "string", "minLength": 6, "maxLength": 80},
+        "role": {"type": "string", "enum": ["ADMIN", "PHARMACIST", "DELIVERER", "CUSTOMER"]}
     },
-    "required": ["first_name", "last_name", "username", "email", "password"]
+    "required": ["first_name", "last_name", "username", "email", "password", "role"]
 }
 
 
@@ -33,7 +38,7 @@ def create_user():
     username = request.json['username']
     email = request.json['email']
     password = request.json['password']
-
+    role = request.json['role']
     if not check_email_format(email):
         return generate_response(False, 'Bad email format', None, 400)
     existing_user = User.query.filter_by(email=email).first()
@@ -42,7 +47,18 @@ def create_user():
     existing_user = User.query.filter_by(username=username).first()
     if existing_user:
         return generate_response(False, 'User with specified username already exists', None, 400)
-    new_user = User(first_name, last_name, email, username, password)
+    if role != "CUSTOMER":
+        try:
+            verify_jwt_in_request()
+            claims = get_jwt()
+            user_id = claims["id"]
+            user = User.query.get(user_id)
+            user_role = user.role
+            if user_role != 'ADMIN':
+                return generate_response(False, 'No permission', None, 403)
+        except Exception as e:
+            return generate_response(False, 'No permission', None, 403)
+    new_user = User(first_name, last_name, email, username, password, role)
     db.session.add(new_user)
     db.session.commit()
     return generate_response(True, 'Successful created new user', new_user.to_json(), 201)
@@ -72,6 +88,7 @@ def change_user(user_id):
     return generate_response(True, 'Successful changed user data', user.to_json(), 200)
 
 
+@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if not user or user.deleted:
@@ -79,12 +96,15 @@ def get_user(user_id):
     return generate_response(True, 'successful user found', user.to_json(), 200)
 
 
+@role_required("ADMIN")
 def get_users():
     users = User.query.filter_by(deleted=False).all()
     users_json = [user.to_json() for user in users]
     return generate_response(True, 'success', users_json, 200)
 
 
+
+@role_required("ADMIN")
 def delete_user(user_id):
     from app import db
     user = User.query.get(user_id)
@@ -105,8 +125,4 @@ def bad_request(error):
     return generate_response(False, "Bad Request", None, 400)
 
 
-def generate_response(success, message, data, status_code):
-    return make_response(jsonify({'success': success,
-                                  'message': message,
-                                  'data': data}),
-                         status_code)
+
