@@ -1,30 +1,17 @@
 from flask import request
-from flask_jwt_extended import jwt_required
-
 from app import app
-from decorators.auth import role_required, jwt_required_custom
 from services import user as user_service
-
-schema = {
-    "type": "object",
-    "properties": {
-        "first_name": {"type": "string"},
-        "last_name": {"type": "string"}
-    },
-    "required": ["first_name"]
-}
 
 
 @app.route("/users", methods=['GET', 'POST'])
-def users():
+def find_all_users():
     if request.method == 'GET':
         return user_service.get_users()
-    else:
+    elif request.method == 'POST':
         return user_service.create_user()
 
 
 @app.route("/users/<int:user_id>", methods=['GET', 'PUT', 'DELETE'])
-@jwt_required_custom()
 def users_by_id(user_id):
     if request.method == 'PUT':
         return user_service.change_user(user_id)
@@ -32,3 +19,9 @@ def users_by_id(user_id):
         return user_service.get_user(user_id)
     else:
         return user_service.delete_user(user_id)
+
+
+@app.route("/auth/login", methods=['POST'])
+def auth():
+    print(request.headers)
+    return user_service.login()

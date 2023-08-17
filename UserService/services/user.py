@@ -3,11 +3,11 @@ import re
 import jwt
 from flask import request, make_response, jsonify
 from flask_expects_json import expects_json
-from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request,  get_jwt
+from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request, get_jwt
 from jsonschema.exceptions import ValidationError
 
 from app import app
-from decorators.auth import role_required
+from decorators.auth import role_required, jwt_required_custom
 from model.User import User
 from services.response_helper import generate_response
 
@@ -74,8 +74,10 @@ change_user_schema = {
 }
 
 
-@expects_json(create_user_schema)
+@expects_json(change_user_schema)
 def change_user(user_id):
+    import time
+    start_time = time.time()
     from app import db
     first_name = request.json['first_name']
     last_name = request.json['last_name']
@@ -85,10 +87,10 @@ def change_user(user_id):
     user.first_name = first_name
     user.last_name = last_name
     db.session.commit()
+    print("--- %s seconds ---" % (time.time() - start_time))
     return generate_response(True, 'Successful changed user data', user.to_json(), 200)
 
 
-@jwt_required()
 def get_user(user_id):
     user = User.query.get(user_id)
     if not user or user.deleted:
@@ -101,7 +103,6 @@ def get_users():
     users = User.query.filter_by(deleted=False).all()
     users_json = [user.to_json() for user in users]
     return generate_response(True, 'success', users_json, 200)
-
 
 
 @role_required("ADMIN")
@@ -123,6 +124,3 @@ def bad_request(error):
 
     # handle other "Bad Request"-errors
     return generate_response(False, "Bad Request", None, 400)
-
-
-
