@@ -48,6 +48,6 @@ def change_user(user_id):
 
 
 def delete_user(user_id):
-    url = "http://127.0.0.1:5001/users/" + user_id
+    url = "http://127.0.0.1:5001/users/" + str(user_id)
     headers = {"Content-Type": "application/json"}
     return request_helper.send_delete_request(url, headers)

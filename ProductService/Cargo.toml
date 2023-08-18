@@ -1,0 +1,10 @@
+[workspace]
+members = [
+  "application",
+  "controllers",
+  "services",
+  "repositories",
+  "models",
+  "infrastructure",
+  "shared",
+]
