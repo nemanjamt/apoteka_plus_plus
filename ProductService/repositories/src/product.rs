@@ -4,9 +4,9 @@ use models::schema::*;
 use models::product::{Product, NewProduct, UpdatedProduct, BasicProductData};
 use diesel::result::Error;
 use diesel::prelude::*;
-use diesel::select;
+// use diesel::select;
 
-const DEFAULT_PAGE_SIZE: i64 = 10;
+// const DEFAULT_PAGE_SIZE: i64 = 10;
 
 pub fn find_product_by_id(product_id : i32) -> Result<Product, Error>{
     let connection = &mut establish_connection();

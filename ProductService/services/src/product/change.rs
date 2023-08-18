@@ -3,13 +3,13 @@ extern crate rocket;
 extern crate diesel;
 use models::product::*;
 use shared::response_models::{ApiResponse};
-use diesel::prelude::*;
+// use diesel::prelude::*;
 use diesel::result::Error;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::form::{Form};
-use rocket::response::Debug;
-use std::env;
-use repositories::*;
+use rocket::serde::{json::Json};
+// use rocket::form::{Form};
+// use rocket::response::Debug;
+// use std::env;
+// use repositories::*;
 use rocket_validation::{Validated};
 
 pub fn change_product(product_id: i32, request_change: Validated<Json<UpdatedProduct>>) -> ApiResponse<Product> {
@@ -38,7 +38,7 @@ pub fn change_product(product_id: i32, request_change: Validated<Json<UpdatedPro
             };
             api_response
         },
-        Err(err) => {
+        Err(_) => {
             let api_response = ApiResponse {
                 success: false,
                 status_code: 500, 

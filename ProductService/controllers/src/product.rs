@@ -1,6 +1,6 @@
 
 use rocket::{get, post, put, delete};
-use rocket::serde::{json::Json, Deserialize, Serialize};
+use rocket::serde::{json::Json};
 use models::product::*;
 use shared::response_models::*;
 use rocket_validation::{Validated};

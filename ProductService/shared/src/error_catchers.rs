@@ -1,8 +1,7 @@
 use crate::response_models::ApiResponse;
 use rocket::serde::{json::Json };
 use rocket::response::status::Custom;
-use rocket_validation::CachedValidationErrors;
-use rocket::{Request, catch, http::Status};
+use rocket::{ catch};
 
 #[catch(500)]
 pub fn internal_error() -> Custom<Json<ApiResponse<()>>> {
@@ -17,22 +16,9 @@ pub fn internal_error() -> Custom<Json<ApiResponse<()>>> {
 
 
 #[catch(422)]
-pub fn unprocessable_entity(req: &Request) -> Custom<Json<ApiResponse<()>>> {
-    let validation_errors = req.local_cache(|| CachedValidationErrors(None)).0.as_ref();
+pub fn unprocessable_entity() -> Custom<Json<ApiResponse<()>>> {
 
-    let mut message = "Something goes wrong!".to_string();
- 
-    if validation_errors.is_some() {
-        message.clear();
-        
-        let erros = validation_errors.unwrap().field_errors();
-        
-        for (_,val) in erros.iter() {
-            for error in val.iter() {
-                message.push_str(error.message.as_ref().unwrap());
-            }
-        }
-    }
+    let  message = "Something goes wrong!".to_string();
 
     let response = ApiResponse{
         status_code:422,

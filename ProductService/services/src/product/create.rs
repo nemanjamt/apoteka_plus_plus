@@ -2,13 +2,13 @@ extern crate rocket;
 extern crate diesel;
 use models::product::*;
 use shared::response_models::{ApiResponse};
-use diesel::prelude::*;
-use diesel::result::Error;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::form::{Form};
-use rocket::response::Debug;
-use std::env;
-use repositories::*;
+// use diesel::prelude::*;
+// use diesel::result::Error;
+use rocket::serde::{json::Json};
+// use rocket::form::{Form};
+// use rocket::response::Debug;
+// use std::env;
+// use repositories::*;
 use rocket_validation::{Validated};
 
 pub fn create_product(product_request: Validated<Json<NewProduct>>) -> ApiResponse<Product>{

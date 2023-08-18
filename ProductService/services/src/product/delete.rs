@@ -2,13 +2,13 @@ extern crate rocket;
 extern crate diesel;
 use models::product::*;
 use shared::response_models::{ApiResponse};
-use diesel::prelude::*;
+// use diesel::prelude::*;
 use diesel::result::Error;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::form::{Form};
-use rocket::response::Debug;
-use std::env;
-use repositories::*;
+// use rocket::serde::{json::Json, Deserialize, Serialize};
+// use rocket::form::{Form};
+// use rocket::response::Debug;
+// use std::env;
+// use repositories::*;
 
 
 
@@ -36,7 +36,7 @@ pub fn delete_product(product_id: i32) -> ApiResponse<Product> {
             };
             api_response
         },
-        Err(err) => {
+        Err(_) => {
             let api_response = ApiResponse {
                 success: false,
                 status_code: 500, 

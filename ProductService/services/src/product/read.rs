@@ -2,14 +2,14 @@ extern crate rocket;
 extern crate diesel;
 use models::product::*;
 use shared::response_models::{ApiResponse};
-use diesel::prelude::*;
+// use diesel::prelude::*;
 use diesel::result::Error;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::form::{Form};
-use rocket::response::Debug;
-use std::env;
-use repositories::*;
-use infrastructure::*;
+// use rocket::serde::{json::Json, Deserialize, Serialize};
+// use rocket::form::{Form};
+// use rocket::response::Debug;
+// use std::env;
+// use repositories::*;
+// use infrastructure::*;
 const DEFAULT_PAGE_SIZE: i64 = 10;
 
 
@@ -100,7 +100,7 @@ pub fn search_products(query_params: ProductQueryParams)-> ApiResponse<Vec<Produ
                 message: "OK".to_string(),
         };
     },
-        Err(e) => {
+        Err(_) => {
             return ApiResponse {
                 success: false,
                 status_code: 500,
