@@ -1,7 +1,3 @@
-
-
-
-
 #[macro_use] extern crate rocket;
 use rocket::{launch, routes};
 // use controllers::*;
