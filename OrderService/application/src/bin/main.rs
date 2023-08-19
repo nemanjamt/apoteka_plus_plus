@@ -17,7 +17,12 @@ fn rocket() -> _ {
                                 order::delete_order,
                                 order_item::change_quantity_order_item,
                                 order_item::delete_order_item,
-                                order_item::create_order_item])
+                                order_item::create_order_item,
+                                delivery_request::create_delivery_request,
+                                delivery_request::delete_delivery_request,
+                                delivery_request::find_delivery_request_by_order_id_and_deliverer_id,
+                                delivery_request::find_delivery_requests_by_order_id,
+                                delivery_request::approve_request])
         // .register("/",catchers![internal_error, unprocessable_entity, bad_request])
 
 }

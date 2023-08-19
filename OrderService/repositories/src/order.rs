@@ -10,6 +10,12 @@ pub fn find_order_by_id(connection: &mut PgConnection, order_id: i32) -> Result<
     .first::<Order>(connection)
 }
 
+pub fn find_delivery_order_by_id(connection: &mut PgConnection, order_id: i32) -> Result<Order, Error>{
+    let connection = &mut establish_connection();
+    orders::table.find(order_id).filter(orders::delivery.eq(true))
+    .first::<Order>(connection)
+}
+
 
 pub fn create_order(connection: &mut PgConnection, new_order: NewOrder) -> Result<Order, Error>{
     diesel::insert_into(models::schema::orders::dsl::orders)
@@ -46,10 +52,10 @@ pub fn delete_order(connection: &mut PgConnection, order_id:i32) -> Result<Order
         .get_result(connection)
 }
 
-pub fn add_deliverer(connection: &mut PgConnection, order_id:i32, deliverer_id:i32) -> Result<Order, Error>{
+pub fn add_deliverer_and_status(connection: &mut PgConnection, order_id:i32, deliverer_id:i32, status:String) -> Result<Order, Error>{
     diesel::update(orders::table.filter(orders::id.eq(order_id))
                                 .filter(orders::delivery.eq(true)))
-            .set(orders::deliverer_id.eq(deliverer_id))
+            .set((orders::deliverer_id.eq(deliverer_id), orders::order_status.eq(status)))
             .returning(orders::all_columns)
             .get_result::<Order>(connection)
 }

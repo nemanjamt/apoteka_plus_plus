@@ -1,6 +1,14 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
+    delivery_request (id) {
+        id -> Int4,
+        deliverer_id -> Int4,
+        order_id -> Int4,
+    }
+}
+
+diesel::table! {
     order_item (id) {
         id -> Int4,
         quantity -> Int4,
@@ -24,9 +32,11 @@ diesel::table! {
     }
 }
 
+diesel::joinable!(delivery_request -> orders (order_id));
 diesel::joinable!(order_item -> orders (order_id));
 
 diesel::allow_tables_to_appear_in_same_query!(
+    delivery_request,
     order_item,
     orders,
 );
