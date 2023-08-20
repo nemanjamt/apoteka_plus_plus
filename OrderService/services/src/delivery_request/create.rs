@@ -1,13 +1,9 @@
 extern crate rocket;
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, OrdersQueryParams};
 use models::delivery_request::{DeliveryRequest, NewDeliveryRequest};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
-use diesel::prelude::*;
-use rocket::response::status::NotFound;
-use chrono::NaiveDateTime;
-use rocket::serde::{json::Json, Deserialize, Serialize};
+use rocket::serde::{json::Json};
 use rocket_validation::{Validated};
 
 
@@ -53,7 +49,7 @@ pub fn create_delivery_request(request: Validated<Json<NewDeliveryRequest>>)-> A
     let created_delivery_request : DeliveryRequest = match repositories::delivery_request::create_delivery_request(connection, create_request)
             {
                 Ok(created_request) => created_request,
-                Err(err) => {
+                Err(_) => {
                     let api_response = ApiResponse {
                         success: false,
                         status_code: 500, 

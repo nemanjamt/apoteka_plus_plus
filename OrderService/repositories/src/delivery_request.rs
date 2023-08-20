@@ -1,14 +1,8 @@
 extern crate rocket;
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, OrdersQueryParams};
 use models::delivery_request::{DeliveryRequest, NewDeliveryRequest};
 use models::schema::*;
-use shared::response_models::{ApiResponse};
-use infrastructure::establish_connection;
 use diesel::prelude::*;
-use rocket::response::status::NotFound;
-use chrono::NaiveDateTime;
-use rocket::serde::{json::Json, Deserialize, Serialize};
 use diesel::result::Error;
 
 

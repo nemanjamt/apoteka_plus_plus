@@ -1,11 +1,9 @@
 use shared::response_models::{ApiResponse};
 use services::delivery_request::{read, create, change, delete};
-use models::order::{Order, OrderWithItems, NewOrder, OrderCreateRequest,OrderChangeRequest, OrdersQueryParams};
 use models::delivery_request::{DeliveryRequest, NewDeliveryRequest, DeliveryRequestInfo};
 use rocket::{get, post, put, delete};
-use rocket::response::status::{NotFound};
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket_validation::{Validate, Validated};
+use rocket::serde::{json::Json};
+use rocket_validation::{ Validated};
 use rocket::response::status::Custom;
 
 #[post("/delivery_request", format="application/json", data="<request>")]
@@ -20,7 +18,7 @@ pub fn delete_delivery_request( id: i32)-> Custom<Json<ApiResponse<()>>>{
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
-#[get("/delivery_request/exists/<order_id>/<deliverer_id>")]
+#[get("/delivery_request/exist/<order_id>/<deliverer_id>")]
 pub fn find_delivery_request_by_order_id_and_deliverer_id( order_id:i32, deliverer_id:i32)-> Custom<Json<ApiResponse<()>>>{
     let response = read::check_exists_by_order_id_deliverer_id(order_id, deliverer_id);
     Custom(rocket::http::Status::new(response.status_code), Json(response))

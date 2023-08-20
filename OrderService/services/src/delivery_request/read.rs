@@ -1,19 +1,14 @@
 extern crate rocket;
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, OrdersQueryParams};
-use models::delivery_request::{DeliveryRequest, NewDeliveryRequest, DeliveryRequestInfo};
+
+use models::delivery_request::{DeliveryRequest,  DeliveryRequestInfo};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
 use diesel::prelude::*;
-use rocket::response::status::NotFound;
-use chrono::NaiveDateTime;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket_validation::{Validated};
-use diesel::result::Error;
 pub fn check_exists_by_order_id_deliverer_id(order_id:i32, deliverer_id:i32) -> ApiResponse<()>{
 
     let connection = &mut establish_connection();
-    let result = match repositories::delivery_request::find_by_deliverer_id_and_order_id(connection, deliverer_id, order_id){
+    match repositories::delivery_request::find_by_deliverer_id_and_order_id(connection, deliverer_id, order_id){
         Ok(_) => {}
         Err(_) => {
             let response = ApiResponse{

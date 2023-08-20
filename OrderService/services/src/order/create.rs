@@ -1,16 +1,12 @@
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, NewOrder, NewOrderItem, OrderCreateRequest};
+use models::order::{Order,  OrderWithItems, NewOrder, NewOrderItem, OrderCreateRequest};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
 use diesel::prelude::*;
-use diesel::dsl::*;
-use diesel::insert_into;
-use rocket::response::status::NotFound;
 use rocket::serde::json::Json;
-use chrono::{Utc, NaiveDateTime,TimeZone, Local};
-use rocket_validation::{Validate, Validated};
-use chrono_tz::Europe::Paris;
-use chrono_tz::Tz;
+use chrono::{ Local};
+use rocket_validation::{ Validated};
+
 
 pub fn create_order(request: Validated<Json<OrderCreateRequest>>) -> ApiResponse<OrderWithItems> {
 
@@ -59,7 +55,7 @@ pub fn create_order(request: Validated<Json<OrderCreateRequest>>) -> ApiResponse
     }) 
     {
         Ok(res) => res,
-        Err(err) => {
+        Err(_) => {
             let api_response = ApiResponse {
                 success: false,
                 status_code: 500,

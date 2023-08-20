@@ -1,9 +1,9 @@
 #[macro_use] extern crate rocket;
 use rocket::{launch, routes};
 // use controllers::*;
-// use shared::error_catchers::*;
+use shared::error_catchers::*;
 use controllers::*;
-use rocket::config::{Config};
+// use rocket::config::{Config};
 
 #[launch]
 fn rocket() -> _ {
@@ -23,6 +23,6 @@ fn rocket() -> _ {
                                 delivery_request::find_delivery_request_by_order_id_and_deliverer_id,
                                 delivery_request::find_delivery_requests_by_order_id,
                                 delivery_request::approve_request])
-        // .register("/",catchers![internal_error, unprocessable_entity, bad_request])
+        .register("/",catchers![internal_error, unprocessable_entity, bad_request])
 
 }

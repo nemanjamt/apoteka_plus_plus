@@ -5,13 +5,11 @@ use diesel::result::Error;
 use diesel::prelude::*;
 use chrono::{NaiveDateTime};
 pub fn find_order_by_id(connection: &mut PgConnection, order_id: i32) -> Result<Order, Error>{
-    let connection = &mut establish_connection();
     orders::table.find(order_id)
     .first::<Order>(connection)
 }
 
 pub fn find_delivery_order_by_id(connection: &mut PgConnection, order_id: i32) -> Result<Order, Error>{
-    let connection = &mut establish_connection();
     orders::table.find(order_id).filter(orders::delivery.eq(true))
     .first::<Order>(connection)
 }

@@ -1,14 +1,7 @@
 extern crate rocket;
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, OrdersQueryParams};
-use models::delivery_request::{DeliveryRequest, NewDeliveryRequest};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
-use diesel::prelude::*;
-use rocket::response::status::NotFound;
-use chrono::NaiveDateTime;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket_validation::{Validated};
 use diesel::result::Error;
 
 pub fn delete_delivery_request(delivery_request_id:i32) -> ApiResponse<()> {

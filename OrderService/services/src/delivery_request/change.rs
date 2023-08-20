@@ -1,13 +1,8 @@
 extern crate rocket;
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, OrdersQueryParams, AddOrderDeliverer};
 use models::delivery_request::{DeliveryRequest};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
-use diesel::prelude::*;
-use rocket::response::status::NotFound;
-use chrono::NaiveDateTime;
-use rocket::serde::{json::Json, Deserialize, Serialize};
 use diesel::result::Error;
 
 
@@ -17,7 +12,7 @@ pub fn approve_delivery_request(request_id: i32)-> ApiResponse<DeliveryRequest> 
     let found_delivery_request = match repositories::delivery_request::find_by_id(connection, request_id){
         Ok(res) => res,
         //ovde razdvojiti slucaj 404 i 500(svaka druga greska)
-        Err(err) => {
+        Err(_) => {
             let api_response = ApiResponse {
                 success: false,
                 status_code: 404, 

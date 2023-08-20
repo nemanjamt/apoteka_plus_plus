@@ -2,10 +2,8 @@ use crate::schema::orders;
 use crate::schema::order_item;
 use diesel::prelude::*;
 use rocket::serde::{Deserialize, Serialize};
-use std::cmp::{Ord, Eq, PartialOrd, PartialEq};
 use chrono::NaiveDateTime;
-use rocket_validation::{Validate, Validated};
-use rocket::form::{Form};
+use rocket_validation::{Validate};
 use rocket::form::{FromForm};
 
 
@@ -31,7 +29,7 @@ pub struct OrdersQueryParams{
 }
 
 
-#[derive(Queryable,Identifiable, Selectable, Serialize, PartialEq, PartialOrd, Debug)]
+#[derive(Queryable,Identifiable, Selectable, Serialize,  Debug)]
 #[diesel(table_name = orders)]
 pub struct Order {
     pub id: i32,
@@ -45,7 +43,7 @@ pub struct Order {
     pub note : String
 }
 
-#[derive(Queryable, Identifiable, Selectable, Serialize,Deserialize, PartialEq, PartialOrd, Debug, Associations)]
+#[derive(Queryable, Identifiable, Selectable, Serialize,Deserialize,  Debug, Associations)]
 #[diesel(belongs_to(Order))]
 #[diesel(table_name = order_item)]
 pub struct OrderItem {

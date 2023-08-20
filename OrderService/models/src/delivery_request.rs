@@ -1,10 +1,7 @@
-use crate::schema::orders;
-use crate::schema::order_item;
 use crate::schema::delivery_request;
 use diesel::prelude::*;
 use rocket::serde::{Deserialize, Serialize};
-use chrono::NaiveDateTime;
-use rocket_validation::{Validate, Validated};
+use rocket_validation::{Validate};
 
 
 #[derive(Queryable, Identifiable, Selectable, Serialize, Debug)]

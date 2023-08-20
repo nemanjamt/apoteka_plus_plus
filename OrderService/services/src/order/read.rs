@@ -1,20 +1,9 @@
 extern crate rocket;
 extern crate diesel;
-use models::order::{Order, OrderItem, OrderWithItems, OrdersQueryParams};
-use models::schema::*;
+use models::order::{ OrderWithItems};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
 use diesel::prelude::*;
-use rocket::response::status::NotFound;
-use chrono::NaiveDateTime;
-use rocket::serde::{json::Json, Deserialize, Serialize};
-use rocket::form::{Form};
-
-use rocket::response::Debug;
-
-use std::env;
-use chrono::NaiveDate;
-use chrono::NaiveTime;
 use diesel::result::Error;
 
 const DEFAULT_PAGE_SIZE: i64 = 10;
