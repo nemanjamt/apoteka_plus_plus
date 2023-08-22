@@ -6,6 +6,7 @@ diesel::table! {
         name -> Varchar,
         description -> Text,
         price -> Float8,
+        image -> Varchar,
         available -> Bool,
         deleted -> Bool,
     }

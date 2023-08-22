@@ -42,6 +42,13 @@ pub fn delete_product(product_id: i32) -> Result<Product, Error>{
     .get_result::<Product>(connection)
 }
 
+pub fn change_product_image_name(product_id:i32, new_image_name:String)->Result<Product, Error>{
+    let connection = &mut establish_connection();
+    diesel::update(products::table.filter(products::id.eq(product_id)).filter(products::deleted.eq(false)))
+    .set(products::image.eq(new_image_name))
+    .get_result::<Product>(connection)
+}
+
 pub fn search_product(product_name:Option<String>, min_price:Option<f64>, max_price:Option<f64>, is_available: Option<bool>, sort_by:Option<String>,
 order:Option<String>, page:Option<i64>, per_page:i64) -> Result<Vec<Product>, Error>{
     use models::schema::products::dsl::*;    

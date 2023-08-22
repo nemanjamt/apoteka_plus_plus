@@ -25,13 +25,13 @@ pub fn search_products(query_params: ProductQueryParams) ->Custom<Json<ApiRespon
 }
 
 #[post("/product", format="application/json" , data="<product_request>")]
-pub fn create_product(product_request: Validated<Json<NewProduct>>) -> Custom<Json<ApiResponse<Product>>>{
+pub fn create_product(product_request: Validated<Json<NewProductRequest>>) -> Custom<Json<ApiResponse<Product>>>{
     let response = services::product::create::create_product(product_request);
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
 #[put("/product/<product_id>", format="json", data="<request_change>")]
-pub fn change_product(product_id: i32, request_change: Validated<Json<UpdatedProduct>>) -> Custom<Json<ApiResponse<Product>>> {
+pub fn change_product(product_id: i32, request_change: Validated<Json<UpdatedProductRequest>>) -> Custom<Json<ApiResponse<Product>>> {
     let response = services::product::change::change_product(product_id, request_change);
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }

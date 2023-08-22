@@ -14,6 +14,7 @@ pub struct Product {
     pub name: String,
     pub description: String,
     pub price: f64,
+    pub image: String,
     pub available: bool,
     pub deleted: bool
 }
@@ -24,6 +25,15 @@ pub struct BasicProductData {
     pub id: i32,
     pub name: String,
 }
+#[derive(Serialize, Deserialize, Validate)]
+pub struct NewProductRequest{
+    #[validate(length(min = 2))]
+    pub name: String,
+    pub description: String,
+    #[validate(range(min = 0, max = 100000))]
+    pub price: f64,
+    pub image: String
+}
 
 #[derive(Insertable, Serialize, Deserialize, Validate)]
 #[diesel(table_name = products)]
@@ -32,7 +42,7 @@ pub struct NewProduct {
     pub name: String,
     pub description: String,
     #[validate(range(min = 0, max = 100000))]
-    pub price: f64,
+    pub price: f64
 }
 
 #[derive(AsChangeset, Serialize, Deserialize, Validate)]
@@ -44,6 +54,18 @@ pub struct UpdatedProduct {
     #[validate(range(min = 0, max = 100000))]
     pub price: f64,
     pub available: bool
+}
+
+#[derive(AsChangeset, Serialize, Deserialize, Validate)]
+#[diesel(table_name = products)]
+pub struct UpdatedProductRequest {
+    #[validate(length(min = 2))]
+    pub name: String,
+    pub description: String,
+    #[validate(range(min = 0, max = 100000))]
+    pub price: f64,
+    pub available: bool,
+    pub image: String
 }
 
 #[derive(Debug, FromForm, Deserialize)]
