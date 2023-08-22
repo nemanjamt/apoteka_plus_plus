@@ -33,7 +33,7 @@ pub fn change_review_product(review_id:i32, change_request: Validated<Json<Chang
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
-#[delete("/reviews_product/<review_id>")]
+#[delete("/review_product/<review_id>")]
 pub fn delete_reviews_product(review_id: i32) -> Custom<Json<ApiResponse<()>>>{
     let response = delete::delete_review_by_id(review_id);
     Custom(rocket::http::Status::new(response.status_code), Json(response))
