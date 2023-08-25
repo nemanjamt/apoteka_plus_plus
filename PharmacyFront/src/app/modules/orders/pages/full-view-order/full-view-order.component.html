@@ -1,0 +1,63 @@
+<body>
+    <section *ngIf="order" class="w-75">
+      <table class="table table-bordered table-fit mx-auto">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Product name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit price</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let orderItem of order.items">
+            <th scope="row">
+              
+
+              <img *ngIf="orderItem.image != ''"
+                [src]="'/IMAGES/'+orderItem.image"
+                alt=""
+                style="width: 50px; height: 50px"
+              />
+              <img *ngIf="orderItem.image == ''"
+                [src]="'../assets/no-image-available.jpg'"
+                alt=""
+                style="width: 50px; height: 50px"
+              />
+            </th>
+            <td>{{orderItem.name}}</td>
+            <td class="d-flex justify-content-center">
+              <input
+                type="number"
+                class="form-control w-50"
+                min="1"
+                [readonly]="!isEditable()"
+                (keydown)="preventNegativeInput($event)"
+                (ngModelChange)="onQuantityChange($event, orderItem)"
+                [ngModel]="orderItem.quantity"             />
+              <button *ngIf="isEditable() && order.order_status == 'CREATED'" (click)="deleteItem(orderItem.id)" class="btn btn-danger ms-1" type="button">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            <td class="text-end">{{orderItem.price}}</td>
+            <td class="text-end">{{orderItem.price*orderItem.quantity}}</td>
+          </tr>
+          
+          <tr>
+            <td class="text-end pe-2 fw-medium" colspan="4">Total:</td>
+            <td class="text-end pe-2" colspan="5">{{getTotal()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div *ngIf="order">
+        <textarea [readonly]="!isEditable()" (ngModelChange)="onChange()" [(ngModel)]="order.note" placeholder="enter a note" rows="4" cols="50"></textarea> <br>
+
+        delivery <input [disabled]="!isEditable()" (ngModelChange)="onChange()" [(ngModel)]="order.delivery" type="checkbox"> <br>
+        <textarea [readonly]="!isEditable()" (ngModelChange)="onChange()" *ngIf="order.delivery" [(ngModel)]="order.address" placeholder="enter a address" rows="2" cols="50"></textarea>
+
+        <button [disabled]="!validChanges()" *ngIf="isEditable()" (click)="saveChanges()" class="btn btn-success">SAVE CHANGES</button>
+    </div>
+    
+  </body>

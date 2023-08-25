@@ -1,0 +1,15 @@
+.slika {
+    background-image: url('./../../../../../assets/pharmacy.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  #hero {
+    width: 100%;
+    height: 100vh;
+    background: url(../../../../../assets/pharmacy.jpg) top center;
+    background-size: cover;
+    position: relative;
+  }
+  

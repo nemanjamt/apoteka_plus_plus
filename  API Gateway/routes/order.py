@@ -18,6 +18,11 @@ def create_order():
     return order_service.create_order()
 
 
+@app.route("/order/search", methods=['GET'])
+def search_order():
+    return order_service.search_order()
+
+
 @app.route("/order/<int:order_id>/status/<string:status>", methods=['PUT'])
 def change_order_status(order_id, status):
     return order_service.order_change_status(order_id, status)

@@ -15,7 +15,7 @@ pub fn find_product_by_id(product_id : i32) -> Result<Product, Error>{
 
 pub fn find_basic_product_data_by_id(product_id : i32) -> Result<BasicProductData, Error>{
     let connection = &mut establish_connection();
-    products::table.select((products::id, products::name))
+    products::table.select((products::id, products::name, products::image))
         .filter(products::id.eq(product_id))
         .first(connection)
     // products::table.filter(products::id.eq(product_id)).first::<BasicProductData>(connection)

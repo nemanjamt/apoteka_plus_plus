@@ -1,8 +1,8 @@
 
-use rocket::serde::Serialize;
+use rocket::serde::{Serialize, Deserialize};
 
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct ApiResponse<T> {
     pub success: bool,
     pub message: String,

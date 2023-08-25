@@ -35,6 +35,15 @@ def create_order():
     return request_helper.send_post_request(url, headers, data)
 
 
+def search_order():
+    url = "http://127.0.0.1:8001/api/order/search"
+    headers = {"Content-Type": "application/json"}
+    query_params = dict(request.args)
+    if request.headers.__contains__('Authorization'):
+        headers["Authorization"] = request.headers['Authorization']
+    return request_helper.send_get_request_with_params(url, headers, query_params)
+
+
 def order_change_status(order_id, status):
     url = "http://127.0.0.1:8001/api/order/" + str(order_id) + "/status/" + str(status)
     headers = {"Content-Type": "application/json"}

@@ -22,10 +22,7 @@ pub struct OrdersQueryParams{
     pub deliverer_id: Option<i32>,
     pub order_status: Option<String>,
     pub start_date: Option<DateTimeCustom>,
-    pub end_date: Option<DateTimeCustom>,
-    pub sort_by: Option<String>,
-    pub order:Option<String>,
-    pub page: Option<i64>,
+    pub end_date: Option<DateTimeCustom>
 }
 
 
@@ -66,6 +63,31 @@ pub struct OrderWithItems{
     pub finished_at: Option<NaiveDateTime>,
     pub items: Vec<OrderItem>,
     pub note: String
+}
+
+#[derive(Serialize)]
+pub struct OrderWithLoadedItems{
+    pub id: i32,
+    pub user_id: i32,
+    pub address: Option<String>,
+    pub deliverer_id: Option<i32>,
+    pub delivery: bool,
+    pub order_status: String,
+    pub created_at: NaiveDateTime,
+    pub finished_at: Option<NaiveDateTime>,
+    pub items: Vec<LoadedOrderItem>,
+    pub note: String
+}
+
+
+#[derive(Deserialize, Serialize)]
+pub struct LoadedOrderItem {
+    pub id: i32,
+    pub quantity : i32,
+    pub product_id : i32,
+    pub price : f64,
+    pub name: String,
+    pub image: String
 }
 
 #[derive(Insertable, Serialize, Deserialize)]

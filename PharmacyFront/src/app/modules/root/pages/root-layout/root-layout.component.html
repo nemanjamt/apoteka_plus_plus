@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <app-navbar-admin *ngIf="role === 'ROLE_ADMIN'"></app-navbar-admin>
+        <app-navbar-deliverer *ngIf="role === 'ROLE_DELIVERER'"></app-navbar-deliverer>
+        <app-navbar-pharmacist *ngIf="role === 'ROLE_PHARMACIST'"></app-navbar-pharmacist>
+        <app-navbar-customer *ngIf="role === 'ROLE_CUSTOMER'"></app-navbar-customer>
+        <app-navbar-unregister-user *ngIf="!role"></app-navbar-unregister-user>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <router-outlet (activate)="checkRole()" ></router-outlet>
+      </div>
+    </div>
+</div>
+  

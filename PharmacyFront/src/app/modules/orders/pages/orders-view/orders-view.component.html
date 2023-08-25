@@ -1,0 +1,44 @@
+<section style="margin-top: 50px;margin-left:20px;" class="w-75">
+    <table class="table table-bordered table-fit mx-auto">
+      <thead>
+        <tr>
+          <th scope="col">Vreme kreiranja</th>
+          <th scope="col">Dostava</th>
+          <th scope="col">Adresa</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+          <th scope="col" *ngIf="!(authService.isCustomer() || authService.isDeliverer())"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <th scope="row">{{formatDateTime(order.created_at)}}</th>
+          <td class="text-center" *ngIf="order.delivery"><i class="bi bi-check-circle-fill"></i></td>
+          <td class="text-center" *ngIf="!order.delivery"><i class="bi bi-x-circle-fill"></i></td>
+          <td *ngIf="order.address != null">{{order.address}}</td>
+          <td class="text-center" *ngIf="order.address == null"><i class="bi bi-slash-lg"></i></td>
+          <td>
+            <select *ngIf="!(authService.isCustomer() || authService.isDeliverer())" class="form-select" aria-label="Default select example"  [(ngModel)]="order.order_status" (change)="changedStatus(order)">
+              <!-- <option selected value="{{order.order_status}}">{{order.order_status}}</option> -->
+              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{status}}</option>
+            </select>
+            <select *ngIf="authService.isDeliverer()" class="form-select" aria-label="Default select example" [disabled]="order.order_status != 'DELIVERY IN PROGRESS'" [(ngModel)]="order.order_status" (change)="changedStatus(order)">
+              <!-- <option selected value="{{order.order_status}}">{{order.order_status}}</option> -->
+              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{status}}</option>
+            </select>
+            <select *ngIf="authService.isCustomer()" class="form-select" aria-label="Default select example" [disabled]="order.order_status != 'CREATED'" [(ngModel)]="order.order_status" (change)="changedStatus(order)">
+              <option selected value="{{order.order_status}}">{{order.order_status}}</option>
+              <option *ngFor="let status of status_options" value="{{status}}" >{{status}}</option>
+            </select>
+          </td>
+          <td class="text-center"><button class="btn" (click)="onDetailedView(order.id)"><i class="bi bi-search" title="pogledaj detaljnije"></i></button></td>
+          <td *ngIf="!(authService.isCustomer() || authService.isDeliverer())" class="text-center">
+            <button *ngIf="canDelete(order)" (click)="deleteOrder(order.id)" type="button" class="btn btn-danger">
+              <i class="bi bi-trash" title="delete order"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  

@@ -24,6 +24,7 @@ pub struct Product {
 pub struct BasicProductData {
     pub id: i32,
     pub name: String,
+    pub image: String
 }
 #[derive(Serialize, Deserialize, Validate)]
 pub struct NewProductRequest{

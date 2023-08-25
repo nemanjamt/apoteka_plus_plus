@@ -3,7 +3,8 @@ use models::schema::*;
 use models::order::{Order, NewOrder, ChangeOrder};
 use diesel::result::Error;
 use diesel::prelude::*;
-use chrono::{NaiveDateTime};
+use models::order::DateTimeCustom;
+use chrono::{NaiveDateTime, NaiveTime, NaiveDate};
 pub fn find_order_by_id(connection: &mut PgConnection, order_id: i32) -> Result<Order, Error>{
     orders::table.find(order_id)
     .first::<Order>(connection)
@@ -19,6 +20,14 @@ pub fn create_order(connection: &mut PgConnection, new_order: NewOrder) -> Resul
     diesel::insert_into(models::schema::orders::dsl::orders)
             .values(new_order)
             .get_result::<Order>(connection)
+}
+
+pub fn find_order_by_user_id(connection: &mut PgConnection, user_id:i32) -> Result<Vec<Order>, Error>{
+    orders::table.filter(orders::user_id.eq(user_id)).load::<Order>(connection)
+}
+
+pub fn find_order_by_deliverer_id(connection: &mut PgConnection, deliverer_id:i32) -> Result<Vec<Order>, Error>{
+    orders::table.filter(orders::deliverer_id.eq(deliverer_id)).load::<Order>(connection)
 }
 
 pub fn change_order(connection : &mut PgConnection, order_id:i32, update_order: ChangeOrder) -> Result<Order, Error>{
@@ -56,4 +65,46 @@ pub fn add_deliverer_and_status(connection: &mut PgConnection, order_id:i32, del
             .set((orders::deliverer_id.eq(deliverer_id), orders::order_status.eq(status)))
             .returning(orders::all_columns)
             .get_result::<Order>(connection)
+}
+
+pub fn search_orders(connection: &mut PgConnection, query_user_id : Option<i32>, query_delivery:Option<bool>, query_deliverer_id: Option<i32>,
+     query_order_status: Option<String>, query_start_date: Option<DateTimeCustom>, query_end_date: Option<DateTimeCustom>) -> Result<Vec<Order>, Error>{
+        use models::schema::*;
+        use models::schema::orders::dsl::*;
+        
+    let mut query = orders.into_boxed();
+
+    // Apply filters based on query parameters
+    if let Some(query_user_id) = query_user_id {
+        query = query.filter(user_id.eq(query_user_id));
+    }
+    if let Some(query_delivery) = query_delivery {
+        query = query.filter(delivery.eq(query_delivery));
+    }
+    if let Some(query_deliverer_id) = query_deliverer_id {
+        query = query.filter(deliverer_id.eq(query_deliverer_id));
+    }
+    if let Some(query_order_status) = query_order_status {
+        query = query.filter(order_status.eq(query_order_status));
+    }
+    if let Some(query_start_date) = query_start_date {
+        let date = NaiveDate::from_ymd(query_start_date.year, query_start_date.month, query_start_date.day);
+        let time = NaiveTime::from_hms(0, 0, 0);
+        let datetime = NaiveDateTime::new(date, time);
+        query = query.filter(created_at.ge(datetime));
+    }
+    if let Some(query_end_date) = query_end_date {
+        let date = NaiveDate::from_ymd(query_end_date.year, query_end_date.month, query_end_date.day+1);
+        let time = NaiveTime::from_hms(0, 0, 0);
+        let datetime = NaiveDateTime::new(date, time);
+        query = query.filter(created_at.le(datetime));
+    }
+
+    
+
+    query = query.order(created_at.desc());
+
+    query.load::<Order>(connection) 
+
+   
 }

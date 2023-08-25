@@ -1,0 +1,13 @@
+.table-fit {
+    table-layout: auto;
+    width: auto;
+    white-space: nowrap;
+}
+
+.table-fit th,
+.table-fit td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    min-width: 150px;
+}

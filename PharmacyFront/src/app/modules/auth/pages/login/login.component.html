@@ -1,0 +1,41 @@
+<body>
+    <section
+      class="w-25 d-flex m-auto container"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 80vh;
+      "
+    >
+      <div  class="row">
+        <form [formGroup]="form" class="border p-5">
+          <div class="mb-3">
+            
+            <input
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              formControlName="username"
+              placeholder="username"
+            />
+          </div>
+          <div class="mb-3">
+            
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="password"
+              formControlName="password"
+            />
+          </div>
+          <div *ngIf="errMessage" class="text-danger err-mes">
+            {{errMessage}}
+        </div>
+          <button  (click)="submit()" [disabled]="form.invalid" class="btn btn-success">sign in</button>
+        </form>
+      </div>
+    </section>
+  </body>

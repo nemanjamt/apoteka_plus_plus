@@ -15,6 +15,7 @@ fn rocket() -> _ {
                                 order::change_order,
                                 order::change_order_status,
                                 order::delete_order,
+                                order::search_orders,
                                 order_item::change_quantity_order_item,
                                 order_item::delete_order_item,
                                 order_item::create_order_item,

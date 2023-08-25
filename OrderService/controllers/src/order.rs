@@ -8,8 +8,26 @@ use rocket_validation::{ Validated};
 
 use rocket::response::status::Custom;
 #[get("/order/<order_id>")]
-pub fn find_order_by_id(order_id: i32) -> Custom<Json<ApiResponse<OrderWithItems>>> {
-    let response = read::find_order_by_id(order_id);
+pub async fn find_order_by_id(order_id: i32) -> Custom<Json<ApiResponse<OrderWithLoadedItems>>> {
+    let response = read::find_order_by_id(order_id).await;
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+
+// #[get("/order/user/<user_id>")]
+// pub fn find_orders_by_user_id(user_id: i32) -> Custom<Json<ApiResponse<Vec<OrderWithItems>>>> {
+//     let response = read::find_orders_by_user_id(user_id);
+//     Custom(rocket::http::Status::new(response.status_code), Json(response))
+// }
+
+// #[get("/order/deliverer/<deliverer_id>")]
+// pub fn find_orders_by_deliverer_id(deliverer_id: i32) -> Custom<Json<ApiResponse<Vec<OrderWithItems>>>> {
+//     let response = read::find_orders_by_deliverer_id(deliverer_id);
+//     Custom(rocket::http::Status::new(response.status_code), Json(response))
+// }
+
+#[get("/order/search?<query_params..>")]
+pub fn search_orders(query_params: OrdersQueryParams) -> Custom<Json<ApiResponse<Vec<OrderWithItems>>>> {
+    let response = read::search_orders(query_params);
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 

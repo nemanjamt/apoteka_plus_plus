@@ -1,0 +1,42 @@
+<section *ngIf="product" class="mt-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <img *ngIf="product && product.image != ''" style="width:400px;" [src]="'IMAGES/'+product.image" alt="" />
+          <img *ngIf="product && product.image == ''" style="width:400px;" [src]="'../assets/no-image-available.jpg'" alt="" />
+        </div>
+        <div class="col-6 mt-4">
+          <h3>{{product.name}}</h3>
+          <p>{{product.price}} <b>RSD</b></p>
+          <div>
+            <p style="height: 150px; overflow-y: auto">
+              {{product.description}}
+            </p>
+          </div>
+          <div *ngIf="!authService.isAdmin()" class="d-flex">
+            <div class="form-outline">
+              <input
+                type="number"
+                id="typeNumber"
+                class="form-control"
+                value="1"
+                min="1"
+                style="width: 100px"
+              />
+            </div>
+            <button style="width: 130px" class="btn btn-success ms-3">
+              Add in cart
+            </button>
+          </div>
+          <div *ngIf="!authService.isCustomer()" class="d-flex mt-3">
+            <button  style="width: 100px" class="btn btn-success ms-3">
+              Edit
+            </button>
+            <button style="width: 100px" class="btn btn-success ms-3">
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
