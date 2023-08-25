@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../types/product';
 import { ProductService } from '../../services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpResponse } from '@angular/common/http';
+import { HttpParams, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,14 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-products.component.scss'],
 })
 export class SearchProductsComponent implements OnInit {
-  products: Product[] = [];
+  products : Product[] = [];
   form: FormGroup;
   isExpanded = false;
   minPrice!: number;
   maxPrice!: number;
-  showAvailable: boolean = false;
+  showJustAvailable: boolean = false;
   sortBy: string = '';
   orderBy: string = '';
+  selectedValue : string = "";
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
@@ -33,21 +34,36 @@ export class SearchProductsComponent implements OnInit {
     // this.addFilter();
   }
 
-  sortAndOrder(sort: string, order: string) {
-    this.sortBy = sort;
-    this.orderBy = order;
+  onSelectChange(){
+    if(this.selectedValue === "1"){
+      this.sortBy="price";
+      this.orderBy = "asc";
+    }else if(this.selectedValue === "2"){
+      this.sortBy="price";
+      this.orderBy = "desc";
+    }else if(this.selectedValue === "3"){
+      this.sortBy="name";
+      this.orderBy = "asc";
+    }else{
+      this.sortBy="price";
+      this.orderBy = "desc";
+    }
+    this.doFilterAndSort();
   }
+  
 
   toggleFilter() {
     this.isExpanded = !this.isExpanded;
   }
 
   clickOnSearch() {
-    this.productService.search(this.form.value.searchValue).subscribe({
+    let params = new HttpParams().set("product_name",this.form.value.searchValue );
+    this.productService.search(params).subscribe({
       next: (res) => {
         // this.products = res.body["data"] as Product[];
-
-        this.products = res.data;
+        console.log(res.body?.data);
+        this.products = res.body?.data as Product[];
+        // this.products = res.data;
         // this.addFilter();
         // this.products = res ;
       },
@@ -56,5 +72,28 @@ export class SearchProductsComponent implements OnInit {
         console.log('Neuspjesno');
       },
     });
+  }
+
+  doFilterAndSort(){
+    let params = new HttpParams().set("product_name", this.form.value.searchValue);
+    if(this.sortBy !== ''){
+      params = params.set("sort_by", this.sortBy);
+    }
+    if(this.orderBy !== ''){
+      params = params.set("order", this.orderBy);
+    }
+    if(this.minPrice){
+      params = params.set("min_price", this.minPrice)
+    }
+    if(this.maxPrice){
+      params = params.set("max_price", this.maxPrice);
+    }
+    if(this.showJustAvailable){
+      params = params.set("is_available", this.showJustAvailable);
+    }
+    this.productService.search(params).subscribe({
+      next: (res) =>{this.products = res.body?.data as Product[];},
+      error: (err) =>{}
+    })
   }
 }

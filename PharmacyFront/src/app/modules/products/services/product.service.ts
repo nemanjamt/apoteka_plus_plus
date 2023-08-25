@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../types/product';
@@ -11,11 +11,19 @@ export class ProductService {
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
   constructor(private http: HttpClient) { }
 
-  search(name:string):Observable<ServiceResponse<Product[]>>{
-
-    return this.http.get<ServiceResponse<Product[]>>("/api/product/search?product_name="+name,  {
+  search(params: HttpParams):Observable<HttpResponse<ServiceResponse<Product[]>>>{
+    
+    const options = {
       headers: this.headers,
-      responseType: "json",
+      observe:"response",
+      params:params,
+      responseType:"json"
+    };
+    return this.http.get<ServiceResponse<Product[]>>("/api/product/search",  {
+      headers: this.headers,
+      observe:"response",
+      params:params,
+      responseType:"json"
     });
   }
 
