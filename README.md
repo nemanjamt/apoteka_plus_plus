@@ -34,7 +34,7 @@ Ukoliko dostavljač odustane od porudžbine, apotekar jedino može promijeniti s
 ### Dostavljač <br>
 * pregled aktivnih porudžbina - može da izabere za dostavu i čeka potvrdu apotekara. Kada apotekar potvrdi da je on dostavljač, ima mogućnost ažuriranja porudžbine u stanje preuzeto, a nakon obavljene dostave porudžbinu prebacuje u stanje dostavljeno.
 * pregled istorije svojih porudžbina
-* mijenjanje statusa porudzbine - može promijeniti status porudžbine u "dostavljeno"
+* mijenjanje statusa porudzbine - može promijeniti status porudžbine u "dostavljeno", "dostava u toku", "preuzeto", "dodjeljeno"
 * uvid u recenzije o sebi i mogućnost da prijavi istu
 
 ### Administrator
