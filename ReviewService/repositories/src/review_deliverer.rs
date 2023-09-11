@@ -21,9 +21,9 @@ pub fn find_all_deliverers_reviews(connection: &mut PgConnection, deliverer_id:i
                         .load::<ReviewDeliverer>(connection)
 }
 
-pub fn find_review_by_deliverer_and_user(connection: &mut PgConnection, deliverer_id:i32, user_id:i32)-> Result<ReviewDeliverer, Error>{
+pub fn find_review_by_deliverer_order(connection: &mut PgConnection, deliverer_id:i32, order_id:i32)-> Result<ReviewDeliverer, Error>{
     review_deliverer::table.filter(review_deliverer::deliverer_id.eq(deliverer_id))
-                        .filter(review_deliverer::user_id.eq(user_id))
+                        .filter(review_deliverer::order_id.eq(order_id))
                         .filter(review_deliverer::deleted.eq(false))
                         .first::<ReviewDeliverer>(connection)
 
@@ -43,6 +43,14 @@ pub fn report_review_deliverer(connection: &mut PgConnection, review_id:i32) -> 
     diesel::update(review_deliverer::table.filter(review_deliverer::id.eq(review_id)).filter(review_deliverer::reported.eq(false))
                                         .filter(review_deliverer::deleted.eq(false)))
             .set(review_deliverer::reported.eq(true))
+            .returning(review_deliverer::all_columns)
+            .get_result::<ReviewDeliverer>(connection)
+}
+
+pub fn unreport_review_deliverer(connection: &mut PgConnection, review_id:i32) -> Result<ReviewDeliverer, Error>{
+    diesel::update(review_deliverer::table.filter(review_deliverer::id.eq(review_id)).filter(review_deliverer::reported.eq(true))
+                                        .filter(review_deliverer::deleted.eq(false)))
+            .set(review_deliverer::reported.eq(false))
             .returning(review_deliverer::all_columns)
             .get_result::<ReviewDeliverer>(connection)
 }

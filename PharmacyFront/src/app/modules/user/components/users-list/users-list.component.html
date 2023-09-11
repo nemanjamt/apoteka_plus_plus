@@ -1,0 +1,64 @@
+<div class="container mt-5">
+    
+    <table class="table table-bordered table-fit mx-auto">
+        <thead>
+          <tr>
+            <th scope="col">Profile</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Delete</th>
+
+          </tr>
+        </thead>
+
+        <tbody >
+          <tr
+            *ngFor="let user of users"
+          >
+            <th  style="text-align: center;" scope="row">
+              <button class="btn btn-primary" (click)="viewProfile(user.id)">
+                <i class="bi bi-person-circle"></i>
+              </button>
+            </th>
+            <td>
+              {{user.first_name}}
+            </td>
+            <td>
+                {{user.last_name}}
+            </td>
+            <td class="d-flex justify-content-center">
+              
+              <button
+                
+                (click)="openModal(sureModal, user.id)"
+                class="btn btn-danger ms-1"
+                type="button"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            
+          </tr>
+
+          
+        </tbody>
+      </table>
+</div>
+<ng-template #sureModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="userLabel">
+        Jeste li sigurni da zelite ukloniti korisnika?
+      </h5>
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        &times;
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="deleteUser()">
+        Yes
+      </button>
+      <button type="button" class="btn btn-danger" (click)="modal.dismiss()">
+        No
+      </button>
+    </div>
+  </ng-template>

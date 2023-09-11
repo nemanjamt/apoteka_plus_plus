@@ -31,6 +31,12 @@ pub fn search_orders(query_params: OrdersQueryParams) -> Custom<Json<ApiResponse
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
+#[get("/order/user_ordered_product/<user_id>/<product_id>")]
+pub fn find_user_ordered_product(user_id:i32, product_id:i32) -> Custom<Json<ApiResponse<()>>>{
+    let response = read::find_user_ordered_product(user_id, product_id);
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+
 
 #[post("/order", format="application/json", data="<order>")]
 pub fn create_order(order: Validated<Json<OrderCreateRequest>>) -> Custom<Json<ApiResponse<OrderWithItems>>>{

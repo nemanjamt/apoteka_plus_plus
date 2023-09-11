@@ -59,3 +59,12 @@ pub fn report_review_product(connection: &mut PgConnection, review_id:i32) -> Re
             .returning(review_product::all_columns)
             .get_result::<ReviewProduct>(connection)
 }
+
+pub fn unreport_review_product(connection: &mut PgConnection, review_id:i32) -> Result<ReviewProduct, Error>{
+    diesel::update(review_product::table.filter(review_product::id.eq(review_id))
+                                        .filter(review_product::reported.eq(true))
+                                        .filter(review_product::deleted.eq(false)))
+            .set(review_product::reported.eq(false))
+            .returning(review_product::all_columns)
+            .get_result::<ReviewProduct>(connection)
+}

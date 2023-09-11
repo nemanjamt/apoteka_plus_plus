@@ -13,7 +13,6 @@ export const routes:Routes = [
     {
       path:"signup",
       pathMatch:"full",
-      component:RegistrationComponent,
-      canActivate:[LoginGuard]
+      component:RegistrationComponent
     }
    ];

@@ -1,0 +1,71 @@
+<section>
+  <div style="margin-top: 50px" class="container">
+    <div class="row">
+      <div class="card" style="width: 50%; margin-bottom: 50px">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+                <h5 class="card-title mb-0">
+                    <a
+                        class="hyperlink"
+                        style="cursor: pointer; text-decoration: none"
+                        (click)="viewUser(review.user_id)"
+                    >
+                        {{ review.first_name }} {{ review.last_name }}
+                    </a>
+                </h5>
+            </div>
+            <button
+                (click)="openModal(sureModal)"
+                *ngIf="authService.getCurrentlyLoggedId() == review.user_id || authService.isAdmin()"
+                type="button"
+                class="btn btn-danger"
+            >
+                <i class="bi bi-trash3-fill"></i>
+            </button>
+        </div>
+        
+          <p class="card-text" style="max-height: 100px; overflow: auto">
+            {{ review.comment }}
+          </p>
+          <div class="d-flex justify-content-between">
+            <div>
+              <span
+                *ngFor="let star of getRange(review.mark)"
+                class="bi bi-star-fill text-danger"
+              ></span>
+              <!--sive zvjezdice -->
+              <span
+                *ngFor="let star of getRange(5 - review.mark)"
+                class="bi bi-star-fill"
+              ></span>
+            </div>
+            <div>
+              <a
+                class="hyperlink"
+                style="cursor: pointer; text-decoration: none"
+                (click)="seeProduct(review.product_id)"
+                >see product</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #sureModal let-modal>
+  <div class="modal-header">
+   <h5 class="modal-title" id="userLabel">Jeste li sigurni da zelite izbrisati komentar?</h5>
+  <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">&times;</button>
+    
+  </div>
+  
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="onDeleteClicked()">Yes</button>
+     <button type="button" class="btn btn-danger" (click)="modal.dismiss()" >No</button>
+    </div>
+   
+
+</ng-template>

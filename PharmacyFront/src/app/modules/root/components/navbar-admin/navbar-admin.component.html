@@ -1,90 +1,133 @@
 <body>
-    <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand fw-medium" [routerLink]="['/']">Apoteka plus plus</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="ms-auto">
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-medium" [routerLink]="['/']"
+          >Apoteka plus plus</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="ms-auto">
+            <div class="dropdown-links">
               <a
-                class="ms-5 text-decoration-none fs-4 fw-medium text-dark"
-                href="#"
-                >Izvestaj</a
+                class="ms-5 text-decoration-none fs-4 fw-medium text-dark droplinks"
+                >Proizvodi</a
               >
-              <div class="dropdown-links">
+              <div class="dropdown-content-links">
                 <a
-                  class="ms-5 text-decoration-none fs-4 fw-medium text-dark droplinks"
-                  href="#"
-                  >Korisnici</a
+                  class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
+                  (click)="onCreateProduct()"
+                  >Kreiraj proizvod</a
                 >
-                <div class="dropdown-content-links">
-                  <a
-                    class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
-                    href="#"
-                    >Pregled korisnika</a
-                  >
-                  <a
-                    class="mb-2 text-decoration-none text-dark py-2 w-100 text-center links-style"
-                    href="#"
-                    >Dodaj korisnika</a
-                  >
-                </div>
               </div>
-
+            </div>
+            <a
+              class="ms-5 text-decoration-none fs-4 fw-medium text-dark"
+              [routerLink]="['report/business']"
+              >Izvestaj</a
+            >
+            <div class="dropdown-links">
               <a
-                class="ms-5 text-decoration-none fs-4 fw-medium text-dark"
-                (click)="onOrders()"
+                class="ms-5 text-decoration-none fs-4 fw-medium text-dark droplinks"
+                >Korisnici</a
+              >
+              <div class="dropdown-content-links">
+                <a
+                  class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
+                  [routerLink]="['user/pharmacists']"
+                  >Apotekari</a
+                >
+                <a
+                  class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
+                  [routerLink]="['user/deliverers']"
+                  >Dostavljaci</a
+                >
+                <a
+                  class="mb-2 text-decoration-none text-dark py-2 w-100 text-center links-style"
+                  [routerLink]="['/auth/signup']"
+                  >Dodaj korisnika</a
+                >
+              </div>
+            </div>
+
+            <div class="dropdown-links">
+              <a
+                class="ms-5 text-decoration-none fs-4 fw-medium text-dark droplinks"
                 >Narudzbine</a
               >
-              <div class="dropdown-links">
+              <div class="dropdown-content-links">
                 <a
-                  class="ms-5 text-decoration-none fs-4 fw-medium text-dark droplinks"
-                  href="#"
-                  >Recenzije</a
+                  style="cursor: pointer"
+                  class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
+                  (click)="onOrders()"
+                  >Sve</a
                 >
-                <div class="dropdown-content-links">
-                  <a
-                    class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
-                    href="#"
-                    >Proizvod</a
-                  >
-                  <a
-                    class="mb-2 text-decoration-none text-dark py-2 w-100 text-center links-style"
-                    href="#"
-                    >Dostavljac</a
-                  >
-                </div>
+                <a
+                  class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
+                  [routerLink]="['orders/search-deliverers']"
+                  >Dostavljaca</a
+                >
+                <a
+                  class="mb-2 text-decoration-none text-dark py-2 w-100 text-center links-style"
+                  [routerLink]="['orders/search-customers']"
+                  >Korisnika</a
+                >
               </div>
-              <div class="dropdown">
-                <button
-                  class="btn btn-outline-success ms-5 dropbtn"
-                  type="button"
+            </div>
+
+            <div class="dropdown-links">
+              <a
+                class="ms-5 text-decoration-none fs-4 fw-medium text-dark droplinks"
+                >Recenzije</a
+              >
+              <div class="dropdown-content-links">
+                <a
+                  class="mb-2 text-decoration-none text-dark py-3 w-100 text-center links-style"
+                  [routerLink]="['reviews/reported']"
+                  >Prijavljene</a
                 >
-                  <i class="bi bi-person"></i>
+                <a
+                  class="mb-2 text-decoration-none text-dark py-2 w-100 text-center links-style"
+                  [routerLink]="['reviews/deliverer']"
+                  >Dostavljac</a
+                >
+              </div>
+            </div>
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-success ms-5 dropbtn"
+                type="button"
+              >
+                <i class="bi bi-person"></i>
+              </button>
+              <div class="dropdown-content">
+                <button
+                  [routerLink]="['user/profile']"
+                  class="w-100 mt-2 border-0 button-style"
+                >
+                  <a class="text-decoration-none">Profil</a>
                 </button>
-                <div class="dropdown-content">
-                  <button class="w-100 mt-2 border-0 button-style">
-                    <a class="text-decoration-none" href="#">Profil</a>
-                  </button>
-                  <button (click)="logout()" class="w-100 mt-2 border-0 button-style">
-                    <a class="text-decoration-none"  >Odjavi se</a>
-                  </button>
-                </div>
+                <button
+                  (click)="logout()"
+                  class="w-100 mt-2 border-0 button-style"
+                >
+                  <a class="text-decoration-none">Odjavi se</a>
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </nav>
-    </header>
-    
-  </body>
+      </div>
+    </nav>
+  </header>
+</body>

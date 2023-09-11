@@ -5,3 +5,8 @@ export interface OrderItem{
     product_id:number,
     price:number
 }
+
+export interface ChangeOrderItem{
+    id:number,
+    quantity:number
+}

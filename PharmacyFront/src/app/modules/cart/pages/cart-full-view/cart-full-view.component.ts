@@ -18,6 +18,7 @@ export class CartFullViewComponent implements OnInit {
   delivery:boolean = false;
   address:string = "";
   isDeliveringValid = true;
+  successCreated !: boolean;
   constructor(private productService: ProductService, private orderService: OrdersService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -111,7 +112,7 @@ export class CartFullViewComponent implements OnInit {
       items: orderItems
     };
     this.orderService.createOrder(requestObject).subscribe({
-      next: (res)=>{},
+      next: (res)=>{ this.successCreated = true; setTimeout(()=>{this.successCreated = false;}, 1200);},
       error: (err)=>{}
     });
   }

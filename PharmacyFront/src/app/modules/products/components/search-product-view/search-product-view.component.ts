@@ -19,6 +19,16 @@ export class SearchProductViewComponent implements OnInit {
   }
   addInCart(product_id : Number){
     this.productService.addInCart(product_id);
+    const addInCartButtons = document.getElementById("add-span-"+product_id);
+    const addedInCart = document.getElementById("span-"+product_id) as Element;
+
+    addedInCart.classList.remove("invisible");
+    addedInCart.classList.add("visible");
+    setTimeout(() => {
+      addedInCart.classList.remove("visible");
+      addedInCart.classList.add("invisible");
+    }, 2000);
+
   }
 
   showFullViewProduct(product_id:number){

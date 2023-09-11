@@ -8,35 +8,62 @@
         <div class="col-6 mt-4">
           <h3>{{product.name}}</h3>
           <p>{{product.price}} <b>RSD</b></p>
+          <p>DOSTUPNOST  <b *ngIf="product.available"><i class="bi bi-check-circle-fill"></i></b> <b *ngIf="!product.available"><i class="bi bi-x-circle-fill"></i></b></p>
           <div>
             <p style="height: 150px; overflow-y: auto">
               {{product.description}}
             </p>
           </div>
-          <div *ngIf="!authService.isAdmin()" class="d-flex">
-            <div class="form-outline">
-              <input
-                type="number"
-                id="typeNumber"
-                class="form-control"
-                value="1"
-                min="1"
-                style="width: 100px"
-              />
-            </div>
-            <button style="width: 130px" class="btn btn-success ms-3">
-              Add in cart
-            </button>
+          <div *ngIf="productAdded">
+            <label style="color:green;">product successful added in cart</label>
           </div>
-          <div *ngIf="!authService.isCustomer()" class="d-flex mt-3">
-            <button  style="width: 100px" class="btn btn-success ms-3">
-              Edit
+          <div *ngIf="authService.isCustomer()" class="d-flex">
+            <form [formGroup]="form">
+              <div class="d-flex">
+                <div class="form-outline">
+                  <input
+                    type="number"
+                    id="typeNumber"
+                    class="form-control"
+                    value="1"
+                    min="1"
+                    style="width: 100px"
+                    formControlName="quantity"
+                  />
+                </div>
+                <button [disabled]="!form.valid || !product.available" style="width: 130px" class="btn btn-success ms-3" (click)="addInCart()">
+                  Add in cart
+                </button>
+              </div>
+              
+            </form>
+            
+          </div>
+          <div *ngIf="!authService.isCustomer() && !authService.isDeliverer()" class="d-flex mt-3">
+            <button (click)="onEdit()" style="width: 100px" class="btn btn-success ms-3">
+              <i class="bi bi-pencil-square"></i>
             </button>
-            <button style="width: 100px" class="btn btn-success ms-3">
-              Remove
+            <button (click)="openModal(sureModal)" style="width: 100px" class="btn btn-danger ms-3">
+              <i class="bi bi-trash3-fill"></i>
             </button>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <ng-template #sureModal let-modal>
+    <div class="modal-header">
+     <h5 class="modal-title" id="userLabel">Jeste li sigurni da zelite izbrisati proizvod?</h5>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">&times;</button>
+      
+    </div>
+    
+  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="onRemove()">Yes</button>
+       <button type="button" class="btn btn-danger" (click)="modal.dismiss()" >No</button>
+      </div>
+     
+  
+  </ng-template>

@@ -15,7 +15,10 @@ export class RoleGuard implements CanActivate {
     const expectedRoles: string = route.data['expectedRoles'];
     const token = localStorage.getItem("user");
     const jwt: JwtHelperService = new JwtHelperService();
-
+    console.log(token);
+    console.log(!token);
+    console.log("123321");
+    
     if (!token) {
       this.router.navigate([""]);
       return false;
@@ -26,12 +29,15 @@ export class RoleGuard implements CanActivate {
     const info = jwt.decodeToken(token);
     console.log(info.role);
     const roles: string[] = expectedRoles.split("|");
+    console.log("????");
     console.log(roles);
     console.log(info.role);
     if (roles.indexOf(info.role) === -1) {
       this.router.navigate(["/forbidden"]);
       return false;
     }
+    return true;
+    console.log("123");
     return true;
   }
   

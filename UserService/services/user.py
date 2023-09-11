@@ -69,8 +69,9 @@ change_user_schema = {
     "properties": {
         "first_name": {"type": "string", "minLength": 2, "maxLength": 80},
         "last_name": {"type": "string", "minLength": 2, "maxLength": 80},
+        "email": {"type": "string", "format": "email"},
     },
-    "required": ["first_name", "last_name"]
+    "required": ["first_name", "last_name", "email"]
 }
 
 
@@ -81,13 +82,16 @@ def change_user(user_id):
     from app import db
     first_name = request.json['first_name']
     last_name = request.json['last_name']
+    email = request.json['email']
+    if not check_email_format(email):
+        return generate_response(False, 'Bad email format', None, 400)
     user = User.query.get(user_id)
     if not user or user.deleted:
         return generate_response(False, 'User with specified id does not exists', None, 404)
     user.first_name = first_name
     user.last_name = last_name
+    user.email = email
     db.session.commit()
-    print("--- %s seconds ---" % (time.time() - start_time))
     return generate_response(True, 'Successful changed user data', user.to_json(), 200)
 
 
@@ -105,6 +109,24 @@ def get_users():
     return generate_response(True, 'success', users_json, 200)
 
 
+def block_user(user_id):
+    user = User.query.get(user_id)
+    print(request.json['reason'])  # poslati na mejl obavjestenje
+    from app import db
+    user.blocked = True
+    db.session.commit()
+    return generate_response(True, 'Successful user blocked', user.to_json(), 200)
+
+
+def unblock_user(user_id):
+    user = User.query.get(user_id)
+    print(request.json['reason'])  # poslati na mejl obavjestenje
+    from app import db
+    user.blocked = False
+    db.session.commit()
+    return generate_response(True, 'Successful user unblocked', user.to_json(), 200)
+
+
 @role_required("ADMIN")
 def delete_user(user_id):
     from app import db
@@ -114,6 +136,56 @@ def delete_user(user_id):
     user.deleted = True
     db.session.commit()
     return generate_response(True, 'Successful user deleted', user.to_json(), 200)
+
+
+def get_basic_user_info_by_id(user_id):
+    user = User.query.get(user_id)
+    if not user or user.deleted:
+        return generate_response(False, 'User with specified id does not exists', None, 404)
+    user_basic_info = {
+        "id": user.id,
+        "first_name": user.first_name,
+        "last_name": user.last_name
+    }
+    return generate_response(True, 'Successful found user', user_basic_info, 200)
+
+
+def get_basic_user_info_by_username(username):
+    user = User.query.filter_by(username=username).first()
+    if not user or user.deleted:
+        return generate_response(False, 'User with specified username does not exists', None, 404)
+    user_basic_info = {
+        "id": user.id,
+        "first_name": user.first_name,
+        "last_name": user.last_name
+    }
+    return generate_response(True, 'Successful found user', user_basic_info, 200)
+
+
+def get_pharmacists():
+    users = User.query.filter_by(role="PHARMACIST").filter_by(deleted=False)
+    pharmacists_basic = [
+        {
+            "id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name
+        }
+        for user in users
+    ]
+    return generate_response(True, 'Pharmacists found successfully', pharmacists_basic, 200)
+
+
+def get_deliverers():
+    users = User.query.filter_by(role="DELIVERER").filter_by(deleted=False)
+    pharmacists_basic = [
+        {
+            "id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name
+        }
+        for user in users
+    ]
+    return generate_response(True, 'Deliverers found successfully', pharmacists_basic, 200)
 
 
 @app.errorhandler(400)

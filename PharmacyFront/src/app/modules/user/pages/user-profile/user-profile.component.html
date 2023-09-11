@@ -1,0 +1,77 @@
+<body>
+    <section
+    *ngIf="user != undefined"
+      class="w-25 d-flex m-auto container"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 80vh;
+      "
+    >
+      <div class="row">
+        
+        <form [formGroup]="form" class="border" style="padding: 30px 150px">
+            <img src="../../../../../assets/profile-user.jpg" height="150px;" width="250px;">
+          <div class="mb-0">
+            <label for="formGroupExampleInput" class="form-label"></label>
+            <input
+            [readonly]="!isMyProfile && !authService.isAdmin()"
+            style="width:200px;"
+              type="text"
+              class="form-control"
+              id="formGroupExampleInput"
+              placeholder="First name"
+              formControlName="firstName"
+            />
+          </div>
+          <div class="mb-0">
+            <label for="formGroupExampleInput1" class="form-label"></label>
+            <input
+            [readonly]="!isMyProfile && !authService.isAdmin()"
+              type="text"
+              class="form-control"
+              id="formGroupExampleInput1"
+              style="width:200px;"
+              placeholder="Last name"
+              formControlName="lastName"
+            />
+          </div>
+          <div class="mb-0">
+            <label for="formGroupExampleInput1" class="form-label"></label>
+            <input
+              readonly
+              type="text"
+              class="form-control"
+              id="formGroupExampleInput1"
+              style="width:200px;"
+              placeholder="username"
+              formControlName="username"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"></label>
+            <input
+            [readonly]="!isMyProfile && !authService.isAdmin()"
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              style="width:200px;"
+              placeholder="Email address"
+              formControlName="email"
+            />
+          </div>
+          <div class="mb-2">
+            <label *ngIf="successChanged" style="margin-bottom: 10px; color: green;"> data successful changed</label>
+          <button style="margin-right: 5px;" *ngIf="isMyProfile || authService.isAdmin()" [disabled]="!form.valid || form.pristine" type="submit" (click)="saveChanges()" class="btn btn-success">Save changes</button>
+          <button *ngIf="!isMyProfile && !authService.isPharmacist()"  type="submit" (click)="blockUser()" class="btn btn-success">block user</button>
+          </div>
+          
+        </form>
+      </div>
+    </section>
+    
+  </body>
+

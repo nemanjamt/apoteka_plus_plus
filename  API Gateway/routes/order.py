@@ -23,6 +23,11 @@ def search_order():
     return order_service.search_order()
 
 
+@app.route("/order/user_ordered_product/<int:user_id>/<int:product_id>", methods=['GET'])
+def find_user_ordered_product(user_id, product_id):
+    return order_service.find_user_ordered_product(user_id, product_id)
+
+
 @app.route("/order/<int:order_id>/status/<string:status>", methods=['PUT'])
 def change_order_status(order_id, status):
     return order_service.order_change_status(order_id, status)
@@ -61,6 +66,16 @@ def find_delivery_request_by_order_id(order_id):
 @app.route("/delivery_request/exist/<int:order_id>/<int:deliverer_id>", methods=['GET'])
 def check_exist_delivery_request(order_id, deliverer_id):
     return order_service.exist_delivery_requests_by_order_deliverer(order_id, deliverer_id)
+
+
+@app.route("/delivery_request/deliverer/<int:deliverer_id>", methods=['GET'])
+def find_delivery_requests_by_deliverer(deliverer_id):
+    return order_service.find_delivery_requests_by_deliverer(deliverer_id)
+
+
+@app.route("/delivery_requests", methods=['GET'])
+def find_all_delivery_requests():
+    return order_service.find_all_delivery_requests()
 
 
 @app.route("/delivery_request/<int:id>", methods=['PUT'])

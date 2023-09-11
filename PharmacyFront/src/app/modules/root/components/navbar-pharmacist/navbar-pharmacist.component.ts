@@ -19,4 +19,11 @@ export class NavbarPharmacistComponent implements OnInit {
     this.router.navigate(["auth/signin"]);
   }
 
+  onCreateProduct(){
+    this.router.navigate(["create-product"]);
+  }
+
+  onOrders(){
+    this.router.navigate(["orders"]);
+  }
 }

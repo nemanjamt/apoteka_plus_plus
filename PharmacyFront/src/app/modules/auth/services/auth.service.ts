@@ -1,20 +1,22 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Login } from '../../shared/types/login';
-import { Token } from '../../shared/types/token';
+import { Token, Tokens } from '../../shared/types/token';
+import { ServiceResponse } from '../../shared/types/service-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
+  jwt : JwtHelperService = new JwtHelperService();
   constructor(private http: HttpClient) { }
 
-  login(auth: Login):Observable<HttpResponse<Token>>{
+  login(auth: Login):Observable<ServiceResponse<Tokens>>{
 
-    return this.http.post<HttpResponse<Token>>("/api/auth/login", auth, {
+    return this.http.post<ServiceResponse<Tokens>>("/api/auth/login", auth, {
       headers: this.headers,
       responseType: "json",
     });
@@ -44,7 +46,33 @@ export class AuthService {
     return -1;
   }
   
-  
+
+  getToken(){
+    // const token = localStorage.getItem("user");
+    // if(this.jwt.isTokenExpired(token)){
+    //   const new_access_token = this.refreshToken().subscribe(res);
+    // }
+    // return token;
+  }
+
+  refreshToken() {
+    console.log("REFRESH!");
+    const refreshToken = localStorage.getItem('refresh_token'); 
+    if (refreshToken) {
+      console.log("111");
+      const refresh_headers = new HttpHeaders()
+            .set('Authorization', 'Bearer ' + refreshToken)
+            .set('Content-Type', 'application/json');
+      return this.http.post<ServiceResponse<Token>>("/api/auth/refresh", {
+        headers: refresh_headers,
+        responseType: "json",
+      });
+      
+    } else {
+      console.log("123");
+      return throwError('No refresh token found');
+    }
+  }
 
   // getCurrentLogged(){
   //   const jwt: JwtHelperService = new JwtHelperService();

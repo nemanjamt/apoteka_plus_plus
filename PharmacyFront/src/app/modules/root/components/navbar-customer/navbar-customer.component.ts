@@ -24,4 +24,8 @@ export class NavbarCustomerComponent implements OnInit {
   onOrders(){
     this.router.navigate(["orders"]);
   }
+
+  clickProfile(){
+    this.router.navigate(["user/profile"]);
+  }
 }

@@ -1,0 +1,36 @@
+<section
+  *ngIf="orders"
+  style="margin-top: 50px; margin-left: 20px"
+  class="w-75"
+>
+  
+  <table class="table table-bordered table-fit mx-auto">
+    <thead>
+      <tr>
+        <th scope="col">Vreme kreiranja</th>
+        <th scope="col">Adresa</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <th scope="row">{{ formatDateTime(order.created_at) }}</th>
+        <td>{{ order.address }}</td>
+        <td class="text-center">
+          <button class="btn" (click)="onDetailedView(order.id)">
+            <i class="bi bi-search" title="pogledaj detaljnije"></i>
+          </button>
+        </td>
+        <td style="text-align: center;">
+         <button *ngIf="!delivererAlreadyCreateRequest(order.id)" (click)="clickCreateRequests(order.id)" class="btn btn-success" title="konkurisi za dostavu">
+            <i class="bi bi-check-circle"></i>
+         </button>
+         <button *ngIf="delivererAlreadyCreateRequest(order.id)" (click)="clickRemoveRequest(order.id)" class="btn btn-danger" title="povuci prijavu za dostavu">
+            <i class="bi bi-x-circle"></i>
+         </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

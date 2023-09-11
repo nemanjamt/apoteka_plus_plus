@@ -10,6 +10,7 @@ class User(db.Model):
     password = db.Column(db.String(50))
     deleted = db.Column(db.Boolean, default=False)
     role = db.Column(db.String(20), default="CUSTOMER")
+    blocked = db.Column(db.Boolean, default=False)
 
     def __init__(self, first_name, last_name, email, username, password, role):
         self.first_name = first_name
@@ -32,4 +33,5 @@ class User(db.Model):
             'last_name': self.last_name,
             'email': self.email,
             'username': self.username,
+            'blocked': self.blocked
         }

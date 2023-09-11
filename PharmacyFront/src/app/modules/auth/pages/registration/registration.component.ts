@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmedValidator } from 'src/app/modules/shared/validation/password-validation';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from 'src/app/modules/user/services/user.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +11,9 @@ import { ConfirmedValidator } from 'src/app/modules/shared/validation/password-v
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!:FormGroup;
-  constructor(private fb: FormBuilder) { 
+  errorMessage !: string;
+  success !: boolean;
+  constructor(private fb: FormBuilder, public authService: AuthService, private userService: UserService) { 
     this.createForm();
   }
 
@@ -19,6 +23,7 @@ export class RegistrationComponent implements OnInit {
       lastName:["", [Validators.required,Validators.minLength(2)] ],
       username:["", [Validators.required, Validators.minLength(6)] ],
       email:["", [Validators.required, Validators.email] ],
+      role:["", this.authService.isAdmin() ? [Validators.required] : []],
       password:["", [Validators.required,Validators.minLength(10)] ],
       pwConfirm:["", [Validators.required]]
     },{
@@ -28,5 +33,35 @@ export class RegistrationComponent implements OnInit {
   
   ngOnInit(): void {
   }
+
+  createUser(){
+    let requestObject = {
+      first_name:this.registrationForm.value.firstName,
+      last_name: this.registrationForm.value.lastName,
+      username: this.registrationForm.value.username,
+      email: this.registrationForm.value.email,
+      role:this.registrationForm.value.role === "" ? "CUSTOMER":this.registrationForm.value.role,
+      password: this.registrationForm.value.password
+    };
+    console.log(requestObject);
+    this.userService.createUser(requestObject).subscribe({
+      next: (res) => {
+        this.success = true;
+        setTimeout(() => {
+          this.success = false;
+        }, 2000);
+      },
+      error: (err) => {
+        console.log(err);
+        this.errorMessage = err.error.message;
+        setTimeout(() => {
+          this.errorMessage = "";
+        }, 2000);
+      }
+    });
+
+  }
+
+  
 
 }

@@ -4,7 +4,7 @@
         <div class="row">
           <form [formGroup]="form">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" formControlName="searchValue" placeholder="Search..." />
+              <input type="text" class="form-control" formControlName="searchValue" (change)="onSearchChange()" placeholder="Search..." />
               <button class="btn btn-success" [disabled]="form.invalid" (click)="clickOnSearch()" type="button" style="width: 70px">
                 <i class="bi bi-search"></i>
               </button>
@@ -13,22 +13,32 @@
         </div>
       </section>
       <section *ngIf="this.form.value.searchValue.length > 0">
-        <section class="container">
-          <button
-            id="filter-button"
-            class="btn btn-success my-4"
-            style="width: 130px"
-            (click)="toggleFilter()"
-          >
-            Filter
-          </button>
+        <section class="container-fluid">
+          <div class="d-flex justify-content-between">
+            <button
+              id="filter-button"
+              class="btn btn-success my-4"
+              style="width: 130px"
+              (click)="toggleFilter()"
+            >
+              Filter
+            </button>
+            <button
+              id="sort-button"
+              class="btn btn-success my-4"
+              style="width: 130px"
+              (click)="toggleSort()"
+            >
+              Sort
+            </button>
+          </div>
           <div class="container-fluid">
             <div class="row">
               <div
                 id="filter-holder"
                 class="col-6"
                 [style.height]="isExpanded ? '250px' : '0'"
-                style=" overflow: auto; transition: 0.5s ease-in-out"
+                style="height: 0; overflow: auto; transition: 0.5s ease-in-out"
               >
                 <div class="d-flex mb-4">
                   <input
@@ -37,7 +47,6 @@
                     [(ngModel)]="minPrice"
                     (change)="doFilterAndSort();"
                     placeholder="Price of "
-                    min="0"
                   />
                   <input
                     type="number"
@@ -45,7 +54,6 @@
                     [(ngModel)]="maxPrice"
                     (change)="doFilterAndSort();"
                     placeholder="Price up to"
-                    min="0"
                   />
                 </div>
                 <div class="form-check mb-4">
@@ -54,20 +62,25 @@
                     type="checkbox"
                     [(ngModel)]="showJustAvailable"
                     (change)="doFilterAndSort();"
-                    value=""
                     id="flexCheckDefault"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     Show just available products
                   </label>
                 </div>
+              </div>
+              <div
+                id="sort-holder"
+                class="col-6"
+                [style.height]="isSortExpanded ? '250px' : '0'"
+                style="height: 0; overflow: auto; transition: 0.5s ease-in-out"
+              >
                 <select
                   class="form-select form-select-sm mb-3"
                   aria-label="Large select example"
                   [(ngModel)]="selectedValue"
                   (ngModelChange)="onSelectChange()"
                 >
-                  <option selected value="" disabled>Select an option</option>
                   <option value="1">Sort by price ascending</option>
                   <option value="2">Sort by price descending</option>
                   <option value="3">Sort by name ascending</option>
@@ -77,6 +90,7 @@
             </div>
           </div>
         </section>
+        
         <div class="container">
           <div class="row" >
             <div  *ngFor="let product of products" class="col-3">

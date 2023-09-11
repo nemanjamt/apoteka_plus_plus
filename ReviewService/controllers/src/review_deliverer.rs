@@ -22,14 +22,14 @@ pub fn get_review_deliverer_by_id(review_id: i32) -> Custom<Json<ApiResponse<Rev
 }
 
 #[get("/reviews_deliverer/<deliverer_id>")]
-pub fn get_all_deliverers_reviews(deliverer_id: i32) -> Custom<Json<ApiResponse<Vec<ReviewDeliverer>>>>{
-    let response = read::find_all_deliverers_reviews(deliverer_id);
+pub async fn get_all_deliverers_reviews(deliverer_id: i32) -> Custom<Json<ApiResponse<Vec<ReviewDelivererDetailed>>>>{
+    let response = read::find_all_deliverers_reviews(deliverer_id).await;
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
-#[get("/review_deliverer/<deliverer_id>/<user_id>")]
-pub fn get_review_deliverer_by_deliverer_and_user(deliverer_id: i32, user_id:i32) -> Custom<Json<ApiResponse<ReviewDeliverer>>>{
-    let response = read::find_review_by_deliverer_and_user(deliverer_id, user_id);
+#[get("/review_deliverer/<deliverer_id>/<order_id>")]
+pub fn get_review_deliverer_by_deliverer_order(deliverer_id: i32, order_id:i32) -> Custom<Json<ApiResponse<ReviewDeliverer>>>{
+    let response = read::find_review_by_deliverer_order(deliverer_id, order_id);
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
@@ -45,6 +45,12 @@ pub fn report_review_deliverer(review_id:i32)-> Custom<Json<ApiResponse<()>>>{
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
+#[put("/review_deliverer/unreport/<review_id>")]
+pub fn unreport_review_deliverer(review_id:i32)-> Custom<Json<ApiResponse<()>>>{
+    let response = change::unreport_review_deliverer(review_id);
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+
 #[delete("/review_deliverer/<review_id>")]
 pub fn delete_reviews_deliverer(review_id: i32) -> Custom<Json<ApiResponse<()>>>{
     let response = delete::delete_review_by_id(review_id);
@@ -52,7 +58,7 @@ pub fn delete_reviews_deliverer(review_id: i32) -> Custom<Json<ApiResponse<()>>>
 }
 
 #[get("/review_deliverer/reported")]
-pub fn get_reported_reviews() -> Custom<Json<ApiResponse<Vec<ReviewDeliverer>>>>{
-    let response = read::get_reported_reviews_deliverer();
+pub async fn get_reported_reviews() -> Custom<Json<ApiResponse<Vec<ReviewDelivererDetailed>>>>{
+    let response = read::get_reported_reviews_deliverer().await;
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }

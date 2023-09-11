@@ -14,6 +14,7 @@ export class SearchProductsComponent implements OnInit {
   products : Product[] = [];
   form: FormGroup;
   isExpanded = false;
+  isSortExpanded = false;
   minPrice!: number;
   maxPrice!: number;
   showJustAvailable: boolean = false;
@@ -26,7 +27,7 @@ export class SearchProductsComponent implements OnInit {
     private router: Router
   ) {
     this.form = this.fb.group({
-      searchValue: [null, Validators.required],
+      searchValue: ['', Validators.required],
     });
   }
 
@@ -45,15 +46,21 @@ export class SearchProductsComponent implements OnInit {
       this.sortBy="name";
       this.orderBy = "asc";
     }else{
-      this.sortBy="price";
+      this.sortBy="name";
       this.orderBy = "desc";
     }
     this.doFilterAndSort();
   }
   
+  onSearchChange(){
+    this.products = [];
+  }
 
   toggleFilter() {
     this.isExpanded = !this.isExpanded;
+  }
+  toggleSort(){
+    this.isSortExpanded = !this.isSortExpanded;
   }
 
   clickOnSearch() {

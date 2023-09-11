@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServiceResponse } from '../../shared/types/service-response';
@@ -21,6 +21,14 @@ export class OrdersService {
     });
   }
 
+  getOrdersSearch(params:HttpParams):Observable<ServiceResponse<Order[]>>{
+    return this.http.get<ServiceResponse<Order[]>>("/api/order/search",  {
+      headers: this.headers,
+      params:params,
+      responseType: "json",
+    });
+  }
+
   changeStatus(orderId:number, status:String):Observable<ServiceResponse<Order>>{
     return this.http.put<ServiceResponse<Order>>("/api/order/"+orderId+"/status/"+status,  {
       headers: this.headers,
@@ -35,6 +43,12 @@ export class OrdersService {
     });
   }
 
+  check_user_order_product(userId:number, productId:number):Observable<ServiceResponse<Order>>{
+    return this.http.get<ServiceResponse<Order>>("/api/order/user_ordered_product/"+userId+"/"+productId,  {
+      headers: this.headers,
+      responseType: "json",
+    });
+  }
   changeItemQuantity(orderItemId:number, quantity:number):Observable<ServiceResponse<OrderItem>>{
     return this.http.put<ServiceResponse<OrderItem>>("/api/order_item/"+orderItemId+"/quantity/"+quantity,  {
       headers: this.headers,
@@ -42,9 +56,9 @@ export class OrdersService {
     });
   }
 
-  saveChanges(order: OrderWithLoadedItems):Observable<ServiceResponse<Order>>{
-    let changeObject = {delivery: order.delivery, address:order.address, note:order.note};
-    return this.http.put<ServiceResponse<Order>>("/api/order/"+order.id,changeObject,  {
+  saveChanges(order_id:number, changeObject: any):Observable<ServiceResponse<Order>>{
+    
+    return this.http.put<ServiceResponse<Order>>("/api/order/"+order_id,changeObject,  {
       headers: this.headers,
       responseType: "json",
     });
@@ -83,6 +97,24 @@ export class OrdersService {
     const [time, date] = formattedDate.split(', ');
 
     return `${time} ${date.replace(/\//g, '.')}`;
+  }
+
+  getDelivererPossibleStates(): String[]{
+    return ["DELIVERY IN PROGRESS", "OVER TAKEN", "ASSIGNED","DELIVERED"];
+  }
+
+  getAdminPossibleStates():String[]{
+    return ["CREATED","ACCEPTED","REJECTED",
+    "READY","ASSIGNED","OVER TAKEN","DELIVERY IN PROGRESS","DELIVERED","CANCELLED","FINISHED"];
+  }
+
+  getCustomerPossibleStates():String[]{
+    return ["CANCELLED"]
+  }
+
+  getPharmacistsPossibleStates():String[]{
+    return ["CREATED","ACCEPTED","REJECTED",
+    "READY","ASSIGNED","OVER TAKEN","DELIVERY IN PROGRESS","DELIVERED","CANCELLED","FINISHED"];
   }
 
 }

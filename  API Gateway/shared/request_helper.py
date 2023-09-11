@@ -12,6 +12,7 @@ def send_get_request(url, headers):
         start_time = time.time()
         r = requests.get(url, headers=headers)
         print("--- %s seconds ---" % (time.time() - start_time))
+        print(url)
         # response_data = r.json()
         # expected_keys = ['success', 'message', 'data', 'status_code']
         # return generate_response(response_data['success'], response_data['message'], response_data['data'],

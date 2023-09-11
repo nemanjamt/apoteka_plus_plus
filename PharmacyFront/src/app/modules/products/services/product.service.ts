@@ -27,6 +27,16 @@ export class ProductService {
     });
   }
 
+  deleteProduct(productId:number):Observable<ServiceResponse<Product>>{
+    return this.http.delete<ServiceResponse<Product>>("/api/product/"+productId);
+  }
+  createProduct(requestObject:any):Observable<ServiceResponse<Product>>{
+    return this.http.post<ServiceResponse<Product>>("/api/product", requestObject);
+  }
+  changeProduct(id:number,requestObject:any):Observable<ServiceResponse<Product>>{
+    return this.http.put<ServiceResponse<Product>>("/api/product/"+id, requestObject);
+  }
+
   findProductById(productId: number|string):Observable<ServiceResponse<Product>>{
 
     return this.http.get<ServiceResponse<Product>>("/api/product/"+productId,  {
@@ -43,6 +53,21 @@ export class ProductService {
     }else{
       let productIds = JSON.parse(sessionStorage.getItem("productIds") as string);
       productIds.push(productId)
+      console.log(sessionStorage.getItem("productIds"));
+      sessionStorage.setItem("productIds", JSON.stringify(productIds));
+      console.log(sessionStorage.getItem("productIds"));
+    }
+  }
+  addInCartWithQuantity(productId : number, quantity:number){
+    
+    if(!sessionStorage.getItem("productIds")){
+      let productIds = [productId]
+      sessionStorage.setItem("productIds", JSON.stringify(productIds));
+    }else{
+      let productIds = JSON.parse(sessionStorage.getItem("productIds") as string);
+      for (let i = 0; i < quantity; i++) {
+        productIds.push(productId);
+      }
       console.log(sessionStorage.getItem("productIds"));
       sessionStorage.setItem("productIds", JSON.stringify(productIds));
       console.log(sessionStorage.getItem("productIds"));

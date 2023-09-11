@@ -10,7 +10,7 @@ use rocket::serde::{json::Json, Deserialize, Serialize};
 const DEFAULT_PAGE_SIZE: i64 = 10;
 
 async fn make_request(product_id:i32) -> Result<ApiResponse<BasicProductData>, reqwest::Error> {
-    let request_url = format!("http://localhost:5000/product/basic/{}", product_id);
+    let request_url = format!("http://127.0.0.1:5000/product/basic/{}", product_id);
     println!("123321");
     let response = reqwest::get(request_url).await;
     println!("123321");
@@ -37,6 +37,40 @@ async fn make_request(product_id:i32) -> Result<ApiResponse<BasicProductData>, r
     orderBaseInf
     
 }
+
+pub fn find_user_ordered_product(user_id:i32, product_id:i32)->ApiResponse<()>{
+    let connection = &mut establish_connection();
+    let exists = match repositories::order::find_user_ordered_product(user_id, product_id, connection){
+        Ok(res)=>res,
+        Err(_) =>{
+            let response = ApiResponse{
+                success: false,
+                message: "Internal error".to_string(),
+                status_code:500,
+                data: Some(())
+            };
+            return response;
+        }
+    };
+    if exists{
+        let response = ApiResponse{
+            success: true,
+            message: "Exists order for specified product by user".to_string(),
+            status_code:200,
+            data: Some(())
+        };
+        return response;
+    }else{
+        let response = ApiResponse{
+            success: false,
+            message: "Not exists".to_string(),
+            status_code:404,
+            data: Some(())
+        };
+        return response;
+    }
+}
+
 pub async fn find_order_by_id(order_id: i32) -> ApiResponse<OrderWithLoadedItems> {
     let connection = &mut establish_connection();
 

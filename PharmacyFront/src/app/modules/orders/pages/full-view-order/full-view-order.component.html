@@ -1,5 +1,15 @@
 <body>
-    <section *ngIf="order" class="w-75">
+  <form [formGroup]="form">
+    <section *ngIf="order" class="container mt-5">
+      <h2 *ngIf="user" class="hyperlink">
+        KORISNIK :
+        <a
+          class="hyperlink"
+          style="cursor: pointer; text-decoration: none"
+          (click)="onUserClick(user.id)"
+          >{{ user.first_name }} {{ user.last_name }}</a
+        >
+      </h2>
       <table class="table table-bordered table-fit mx-auto">
         <thead>
           <tr>
@@ -10,54 +20,174 @@
             <th scope="col">Total</th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let orderItem of order.items">
-            <th scope="row">
-              
 
-              <img *ngIf="orderItem.image != ''"
-                [src]="'/IMAGES/'+orderItem.image"
+        <tbody formArrayName="items">
+          <tr
+            *ngFor="let item of getItems().controls; let i = index"
+            [formGroupName]="i"
+          >
+            <th scope="row">
+              <img
+                *ngIf="item.get('image')?.value != ''"
+                [src]="'/IMAGES/' + item.get('image')?.value"
                 alt=""
                 style="width: 50px; height: 50px"
               />
-              <img *ngIf="orderItem.image == ''"
+              <img
+                *ngIf="item.get('image')?.value == ''"
                 [src]="'../assets/no-image-available.jpg'"
                 alt=""
                 style="width: 50px; height: 50px"
               />
             </th>
-            <td>{{orderItem.name}}</td>
+            <td>
+              <a
+                class="hyperlink"
+                style="text-decoration: none; cursor: pointer"
+                (click)="onNameClick(item.get('product_id')?.value)"
+                >{{ item.get("name")?.value }}</a
+              >
+            </td>
             <td class="d-flex justify-content-center">
               <input
                 type="number"
                 class="form-control w-50"
                 min="1"
                 [readonly]="!isEditable()"
-                (keydown)="preventNegativeInput($event)"
-                (ngModelChange)="onQuantityChange($event, orderItem)"
-                [ngModel]="orderItem.quantity"             />
-              <button *ngIf="isEditable() && order.order_status == 'CREATED'" (click)="deleteItem(orderItem.id)" class="btn btn-danger ms-1" type="button">
+                formControlName="quantity"
+              />
+              <button
+                *ngIf="isEditable() && order.order_status == 'CREATED'"
+                (click)="openModal(sureModal, item.get('id')?.value)"
+                class="btn btn-danger ms-1"
+                type="button"
+              >
                 <i class="bi bi-trash"></i>
               </button>
             </td>
-            <td class="text-end">{{orderItem.price}}</td>
-            <td class="text-end">{{orderItem.price*orderItem.quantity}}</td>
+            <td class="text-end">{{ item.get("price")?.value }}</td>
+            <td class="text-end">
+              {{ item.get("price")?.value * item.get("quantity")?.value }}
+            </td>
           </tr>
-          
+
           <tr>
             <td class="text-end pe-2 fw-medium" colspan="4">Total:</td>
-            <td class="text-end pe-2" colspan="5">{{getTotal()}}</td>
+            <td class="text-end pe-2" colspan="5">{{ getTotal() }}</td>
           </tr>
         </tbody>
       </table>
     </section>
-    <div *ngIf="order">
-        <textarea [readonly]="!isEditable()" (ngModelChange)="onChange()" [(ngModel)]="order.note" placeholder="enter a note" rows="4" cols="50"></textarea> <br>
+    <div *ngIf="order" class="container">
+      <div class="row">
+        <div class="col-6">
+          <textarea
+            [readonly]="!isEditable()"
+            formControlName="note"
+            placeholder="enter a note"
+            rows="4"
+            cols="50"
+            class="form-control"
+          ></textarea>
+          <br />
 
-        delivery <input [disabled]="!isEditable()" (ngModelChange)="onChange()" [(ngModel)]="order.delivery" type="checkbox"> <br>
-        <textarea [readonly]="!isEditable()" (ngModelChange)="onChange()" *ngIf="order.delivery" [(ngModel)]="order.address" placeholder="enter a address" rows="2" cols="50"></textarea>
+          <br />
+          <div class="form-check form-switch d-flex align-items-center">
+            
+            <div>
+              <input
+              formControlName="delivery"
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+            />
+            <label class="form-check-label mb-3" style="margin-left: 5px;" for="flexSwitchCheckDefault">
+              delivery
+            </label>
+            </div>
+            
+            <div class="ms-3">
+              <h5 *ngIf="deliverer" class="hyperlink mb-0">
+                DOSTAVLJAC :
+                <a
+                  class="hyperlink"
+                  style="cursor: pointer; text-decoration: none"
+                  (click)="onUserClick(deliverer.id)"
+                >
+                  {{ deliverer.first_name }} {{ deliverer.last_name }}
+                </a>
+              </h5>
+            </div>
+          </div>
 
-        <button [disabled]="!validChanges()" *ngIf="isEditable()" (click)="saveChanges()" class="btn btn-success">SAVE CHANGES</button>
+          <textarea
+            [readonly]="!isEditable()"
+            *ngIf="form.value.address"
+            formControlName="address"
+            placeholder="enter a address"
+            rows="2"
+            cols="50"
+            class="form-control mb-3"
+          ></textarea>
+
+          <label *ngIf="successChanged" style="color: green"
+            >successful changed order</label
+          ><br /><br />
+          <button
+            [disabled]="!form.valid || form.pristine"
+            *ngIf="isEditable()"
+            (click)="saveChanges()"
+            class="btn btn-success"
+          >
+            SAVE CHANGES
+          </button>
+        </div>
+        <div>
+          <div
+            *ngIf="
+              reviewDeliverer === null &&
+              order.delivery &&
+              order.deliverer_id &&
+              order.order_status == 'FINISHED' &&
+              authService.isCustomer()
+            "
+          >
+            <app-create-review
+              [title]="'Rate deliverer'"
+              (notify)="handleNotification()"
+              [delivererReview]="true"
+              [delivererId]="order.deliverer_id"
+              [orderId]="order.id"
+            ></app-create-review>
+          </div>
+          <div *ngIf="reviewDeliverer">
+            <app-deliverer-review
+              [review]="reviewDeliverer"
+              (notify)="handleNotification()"
+              [title]="'Deliverer review'"
+            ></app-deliverer-review>
+          </div>
+        </div>
+      </div>
     </div>
-    
-  </body>
+  </form>
+  <ng-template #sureModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="userLabel">
+        Jeste li sigurni da zelite izbrisati proizvod iz narudzbe?
+      </h5>
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">
+        &times;
+      </button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="deleteItem()">
+        Yes
+      </button>
+      <button type="button" class="btn btn-danger" (click)="modal.dismiss()">
+        No
+      </button>
+    </div>
+  </ng-template>
+</body>

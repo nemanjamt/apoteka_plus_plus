@@ -1,0 +1,95 @@
+<section>
+    <div style="margin-top: 50px" class="container">
+      <div class="row">
+        <h3>{{title}}</h3>
+          <div class="card" style="width: 50%; margin-bottom: 50px;">
+            
+            <div class="card-body">
+              <div class="d-flex justify-content-between" >
+                <div>
+                    <h5 *ngIf="hasName(review) && !authService.isCustomer()" class="card-title">
+                        <a class="hyperlink" style="cursor: pointer; text-decoration: none;" (click)="viewUser(review.user_id)">{{ review.first_name }} {{ review.last_name }} </a>
+                    </h5>
+                </div>
+                <div class="ml-auto">
+                  <button
+                    *ngIf="(authService.isPharmacist() || authService.getCurrentlyLoggedId() == review.deliverer_id) && !review.reported"
+                    type="button"
+                    (click)="reportClicked(review)"
+                    class="btn btn-success"
+                  >
+                    report
+                  </button>
+                  <button
+                    *ngIf="(authService.isPharmacist() || authService.getCurrentlyLoggedId() == review.deliverer_id) && review.reported"
+                    (click)="deleteReportClicked(review)"
+                    type="button"
+                    class="btn btn-success"
+                  >
+                    delete report
+                  </button> 
+                   <button
+                    (click)="onEditClicked(review.id)"
+                    *ngIf="
+                      authService.getCurrentlyLoggedId() == review.user_id &&
+                      !review.reported
+                    "
+                    style="margin-right: 5px;"
+                    type="button"
+                    class="btn btn-success"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button
+                    (click)="openModal(sureModal, review)"
+                    *ngIf="authService.getCurrentlyLoggedId() == review.user_id || authService.isAdmin()"
+                    type="button"
+                    class="btn btn-danger"
+                  >
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                </div>
+              </div>
+              <p class="card-text" style="max-height: 100px; overflow: auto">
+                {{ review.comment  }}
+              </p>
+              <div class="d-flex justify-content-between">
+                <div>
+                  <span
+                    *ngFor="let star of getRange(review.mark)"
+                    class="bi bi-star-fill text-danger"
+                  ></span>
+                  <!--sive zvjezdice -->
+                  <span
+                    *ngFor="let star of getRange(5 - review.mark)"
+                    class="bi bi-star-fill"
+                  ></span>
+                </div>
+                <div *ngIf="seeOrder">
+                  <a (click)="clickSeeOrder(review.order_id)" class="hyperlink" style="cursor: pointer; text-decoration: none;">see order</a>
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+  <ng-template #sureModal let-modal>
+    <div class="modal-header">
+     <h5 class="modal-title" id="userLabel">Jeste li sigurni da zelite izbrisati recenziju?</h5>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">&times;</button>
+      
+    </div>
+    
+  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="deleteClicked()">Yes</button>
+       <button type="button" class="btn btn-danger" (click)="modal.dismiss()" >No</button>
+      </div>
+     
+  
+  </ng-template>
+  

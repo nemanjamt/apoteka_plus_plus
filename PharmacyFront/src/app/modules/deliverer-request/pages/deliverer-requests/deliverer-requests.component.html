@@ -1,0 +1,39 @@
+<section
+  style="margin-top: 50px; margin-left: 20px"
+  class="w-75"
+>
+  
+  <table class="table table-bordered table-fit mx-auto">
+    <thead>
+      <tr>
+        <th scope="col">Dostavljac</th>
+        <th scope="col">Adresa</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <th scope="row" style="text-align: center;">
+            <button class="btn btn-primary" (click)="viewProfile(request.deliverer_id)">
+                <i class="bi bi-person-circle"></i>
+            </button>
+        </th>
+        <td>{{ request.address }}</td>
+        <td class="text-center">
+          <button class="btn" (click)="onDetailedView(request.order_id)">
+            <i class="bi bi-search" title="pogledaj detaljnije"></i>
+          </button>
+        </td>
+        <td style="text-align: center;">
+         <button  (click)="clickAproveRequest(request.id)" style="margin-right: 5px;" class="btn btn-success" title="prihvati zahtjev za dostavu">
+            <i class="bi bi-check-circle"></i>
+         </button>
+         <button  (click)="clickRemoveRequest(request.id)" class="btn btn-danger" title="odbij zahtjev za dostavu">
+            <i class="bi bi-x-circle"></i>
+         </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

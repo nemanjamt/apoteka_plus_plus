@@ -1,0 +1,106 @@
+<section class="mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <h2>Rate the product</h2>
+          <form [formGroup]="reviewForm">
+            <div class="rating justify-content-end">
+              <input
+                value="star-1"
+                name="star-radio"
+                id="star-1"
+               [checked]="reviewForm.value.mark == 5"
+                type="radio"
+                (click)="markChange(5)"
+              />
+              <label for="star-1">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                    pathLength="360"
+                  ></path>
+                </svg>
+              </label>
+              <input
+                value="star-2"
+                name="star-radio"
+                id="star-2"
+                [checked]="reviewForm.value.mark == 4"
+                type="radio"
+                (click)="markChange(4)"
+              />
+              <label for="star-2">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                    pathLength="360"
+                  ></path>
+                </svg>
+              </label>
+              <input
+                value="star-3"
+                name="star-radio"
+                id="star-3"
+                [checked]="reviewForm.value.mark == 3"
+                type="radio"
+                (click)="markChange(3)"
+              />
+              <label for="star-3">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                    pathLength="360"
+                  ></path>
+                </svg>
+              </label>
+              <input
+                value="star-4"
+                name="star-radio"
+                id="star-4"
+                [checked]="reviewForm.value.mark == 2"
+                type="radio"
+                (click)="markChange(2)"
+              />
+              <label for="star-4">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                    pathLength="360"
+                  ></path>
+                </svg>
+              </label>
+              <input
+                value="5"
+                name="star-radio"
+                id="star-5"
+                type="radio"
+                [checked]="reviewForm.value.mark == 1"
+                (click)="markChange(1)"
+              />
+              <label for="star-5">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
+                    pathLength="360"
+                  ></path>
+                </svg>
+              </label>
+            </div>
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                placeholder="Leave a comment here"
+                id="floatingTextarea2"
+                style="height: 100px"
+                formControlName = "comment"
+              ></textarea>
+              <label for="floatingTextarea2"></label>
+            </div>
+            <button [disabled]="!reviewForm.valid && reviewForm.pristine" (click)="changeReview()" type="submit" class="btn btn-primary mt-3">
+              edit review
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>

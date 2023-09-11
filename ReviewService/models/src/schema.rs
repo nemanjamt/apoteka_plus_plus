@@ -5,6 +5,7 @@ diesel::table! {
         id -> Int4,
         user_id -> Int4,
         deliverer_id -> Int4,
+        order_id -> Int4,
         comment -> Varchar,
         mark -> Float8,
         reported -> Bool,

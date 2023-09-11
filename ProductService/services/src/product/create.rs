@@ -49,7 +49,6 @@ pub fn create_product(product_request: Validated<Json<NewProductRequest>>) -> Ap
             }
         };
 
-        // Definišite putanju na kojoj želite da sačuvate sliku
         let output_path = format!("../STORAGE/image{}.jpg", new_product.id);
 
         let mut output_file = match File::create(output_path){

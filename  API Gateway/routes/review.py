@@ -23,6 +23,11 @@ def report_review_product(review_id):
     return review_service.report_review_product(review_id)
 
 
+@app.route("/review_product/unreport/<int:review_id>", methods=['PUT'])
+def delete_report_review_product(review_id):
+    return review_service.delete_report_review_product(review_id)
+
+
 @app.route("/reviews_product/<int:product_id>", methods=['GET'])
 def get_reviews_product(product_id):
     return review_service.get_reviews_product(product_id)
@@ -53,14 +58,24 @@ def report_review_deliverer(review_id):
     return review_service.report_review_deliverer(review_id)
 
 
+@app.route("/review_deliverer/unreport/<int:review_id>", methods=['PUT'])
+def delete_report_review_deliverer(review_id):
+    return review_service.delete_report_review_deliverer(review_id)
+
+
 @app.route("/reviews_deliverer/<int:deliverer_id>", methods=['GET'])
 def get_reviews_deliverer(deliverer_id):
     return review_service.get_reviews_deliverer(deliverer_id)
 
 
-@app.route("/review_deliverer/<int:deliverer_id>/<int:user_id>", methods=['GET'])
-def get_review_deliverer_by_deliverer_and_user(deliverer_id, user_id):
-    return review_service.get_review_deliverer_by_deliverer_and_user(deliverer_id, user_id)
+@app.route("/review_product/find_by_user_and_product/<int:user_id>/<int:product_id>", methods=['GET'])
+def get_reviews_product_by_user_and_product(user_id, product_id):
+    return review_service.get_reviews_product_by_user_and_product(user_id, product_id)
+
+
+@app.route("/review_deliverer/<int:deliverer_id>/<int:order_id>", methods=['GET'])
+def get_review_deliverer_by_deliverer_order(deliverer_id, order_id):
+    return review_service.get_review_deliverer_by_deliverer_order(deliverer_id, order_id)
 
 
 @app.route("/review_deliverer/reported", methods=['GET'])

@@ -71,3 +71,35 @@ pub fn report_review_deliverer(review_id:i32) ->ApiResponse<()>{
     };
     response
 }
+
+pub fn unreport_review_deliverer(review_id:i32) ->ApiResponse<()>{
+    let connection = &mut establish_connection();
+    match repositories::review_deliverer::unreport_review_deliverer(connection, review_id){
+        Ok(_)=>{},
+        Err(Error::NotFound)=>{
+            let response = ApiResponse{
+                success:false,
+                message:"Review of deliverer with specified id does not exist.".to_string(),
+                data: None,
+                status_code:404
+            };
+            return response;
+        },
+        Err(_)=>{
+            let response = ApiResponse{
+                success:false,
+                message:"Internal error".to_string(),
+                data: None,
+                status_code:500
+            };
+            return response;
+        }
+    };
+    let response = ApiResponse{
+        success:true,
+        message:"Reported of review deliverer successful deleted".to_string(),
+        data: Some(()),
+        status_code:200
+    };
+    response
+}

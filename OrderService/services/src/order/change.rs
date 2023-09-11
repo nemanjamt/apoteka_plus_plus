@@ -1,5 +1,5 @@
 
-use models::order::{Order,  OrderWithItems, ChangeOrder,   OrderChangeRequest};
+use models::order::{Order,  OrderWithItems, ChangeOrder,   OrderChangeRequest, OrderItem};
 use shared::response_models::{ApiResponse};
 use infrastructure::establish_connection;
 use rocket::serde::json::Json;
@@ -22,8 +22,12 @@ pub fn change_order(order_id: i32, request:Validated<Json<OrderChangeRequest>>) 
     let connection = &mut establish_connection();
     let result = match connection.transaction(|connection| {
             let changed_order  = repositories::order::change_order(connection, order_id, update_order)?;
-
-            let items = repositories::order_item::find_order_items_by_order_id(connection, order_id)?;
+            let mut order_items : Vec<OrderItem> = Vec::new();
+            for item in &order_change_request.items{
+                let res = repositories::order_item::change_quantity(connection, item.id, item.quantity)?;  
+                order_items.push(res);   
+            }
+            //let items = repositories::order_item::find_order_items_by_order_id(connection, order_id)?;
 
             let result = OrderWithItems {
                     id: changed_order.id,
@@ -35,7 +39,7 @@ pub fn change_order(order_id: i32, request:Validated<Json<OrderChangeRequest>>) 
                     created_at: changed_order.created_at,
                     finished_at: changed_order.finished_at,
                     note: changed_order.note,
-                    items: items,
+                    items: order_items,
                 };
             diesel::result::QueryResult::Ok(result) }
         )

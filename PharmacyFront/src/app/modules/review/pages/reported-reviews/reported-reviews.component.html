@@ -1,0 +1,17 @@
+
+<section>
+    <div>
+        <div *ngFor="let review of delivererReviews">
+            <app-deliverer-review (notify)="handleNotifications()" [review]="review" [seeOrder]="true"></app-deliverer-review>
+        </div>
+    </div>
+</section>
+<section>
+    <div>
+        <div *ngFor="let review of productsReviews">
+            <app-product-review (notify)="handleNotifications()" [review]="review"></app-product-review>
+
+        </div>
+    </div>
+</section>
+

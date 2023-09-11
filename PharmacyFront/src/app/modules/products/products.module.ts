@@ -9,6 +9,8 @@ import { ProductViewComponent } from './components/product-view/product-view.com
 import { CreateReviewComponent } from '../review/components/create-review/create-review.component';
 import { ReviewModule } from '../review/review.module';
 import { SearchProductViewComponent } from './components/search-product-view/search-product-view.component';
+import { CreateProductComponent } from './pages/create-product/create-product.component';
+import { ChangeProductComponent } from './pages/change-product/change-product.component';
 
 
 
@@ -18,7 +20,9 @@ import { SearchProductViewComponent } from './components/search-product-view/sea
     SearchProductsComponent,
     FullViewProductComponent,
     ProductViewComponent,
-    SearchProductViewComponent
+    SearchProductViewComponent,
+    CreateProductComponent,
+    ChangeProductComponent
   ],
   imports: [
     CommonModule,

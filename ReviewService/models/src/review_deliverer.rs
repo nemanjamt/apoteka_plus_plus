@@ -11,6 +11,7 @@ pub struct ReviewDeliverer {
     pub id: i32,
     pub user_id: i32,
     pub deliverer_id: i32,
+    pub order_id: i32,
     pub comment: String,
     pub mark: f64,
     pub reported: bool,
@@ -22,6 +23,7 @@ pub struct ReviewDeliverer {
 pub struct NewReviewDeliverer{
     pub user_id: i32,
     pub deliverer_id: i32,
+    pub order_id: i32,
     pub comment: String,
     #[validate(range(min = 0, max = 5))]
     pub mark: f64
@@ -32,4 +34,17 @@ pub struct ChangeReviewDeliverer{
     pub comment: String,
     #[validate(range(min = 0, max = 5))]
     pub mark: f64
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ReviewDelivererDetailed{
+    pub id: i32,
+    pub user_id: i32,
+    pub deliverer_id: i32,
+    pub order_id: i32,
+    pub comment: String,
+    pub mark: f64,
+    pub reported: bool,
+    pub first_name: String,
+    pub last_name: String
 }

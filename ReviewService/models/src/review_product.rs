@@ -33,3 +33,16 @@ pub struct ChangeReviewProduct{
     #[validate(range(min = 0, max = 5))]
     pub mark: f64
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ReviewProductDetailed{
+    pub id: i32,
+    pub comment: String,
+    pub user_id:i32,
+    pub mark:f64,
+    pub product_id: i32,
+    pub reported:bool,
+    pub first_name: String,
+    pub last_name: String
+}
+

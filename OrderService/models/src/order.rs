@@ -140,7 +140,7 @@ pub struct NewOrderItem{
 
 #[derive(Deserialize, Serialize, Validate)]
 pub struct OrderItemCreateRequest{
-    #[validate(range(min = 0, max = 100))]
+    #[validate(range(min = 0, max = 10000))]
     pub quantity : i32,
     pub product_id : i32,
     #[validate(range(min = 0, max = 100000))]
@@ -162,7 +162,16 @@ pub struct OrderCreateRequest{
 pub struct OrderChangeRequest{
     pub address: Option<String>,
     pub delivery: bool,
-    pub note: String
+    pub note: String,
+    #[validate]
+    pub items: Vec<OrderItemChange>
+}
+
+#[derive(Deserialize, Serialize, Validate)]
+pub struct OrderItemChange{
+    pub id:i32,
+    #[validate(range(min = 0, max = 10000))]
+    pub quantity: i32
 }
 
 

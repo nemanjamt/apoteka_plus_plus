@@ -79,3 +79,77 @@ pub fn find_delivery_requests_by_order_id(order_id:i32) -> ApiResponse<Vec<Deliv
     };
     response
 }
+
+pub fn find_delivery_requests_by_deliverer_id(deliverer_id:i32) -> ApiResponse<Vec<DeliveryRequest>>{
+    let connection = &mut establish_connection();
+    let requests : Vec<DeliveryRequest> = match repositories::delivery_request::find_by_deliverer_id(connection, deliverer_id){
+        Ok(requests) => requests,
+        Err(_) =>{
+            let response = ApiResponse{
+                success:false,
+                status_code:500,
+                message:"Internal error".to_string(),
+                data: None
+            };
+            return response;
+        }
+    };
+
+    let response = ApiResponse{
+        success:true,
+        status_code:200,
+        message:"OK".to_string(),
+        data: Some(requests)
+    };
+    response
+}
+
+pub fn find_all_requests() -> ApiResponse<Vec<DeliveryRequestInfo>>{
+    let connection = &mut establish_connection();
+    let requests : Vec<DeliveryRequest> = match repositories::delivery_request::get_all_requests(connection){
+        Ok(requests) => requests,
+        Err(_) =>{
+            let response = ApiResponse{
+                success:false,
+                status_code:500,
+                message:"Internal error".to_string(),
+                data: None
+            };
+            return response;
+        }
+    };
+
+    let mut request_infos: Vec<DeliveryRequestInfo> = Vec::new();
+
+    for request in requests.iter(){
+        println!("AAAAA");
+        println!("{}",request.order_id);
+        let order_address = match repositories::order::find_order_by_id(connection, request.order_id){
+            Ok(order) => {order.address},
+            Err(_) => {
+                let response = ApiResponse {
+                    success: false,
+                    status_code: 500,
+                    message: "Internal error".to_string(),
+                    data: None,
+                };
+                return response;
+            }
+        };
+        let res = DeliveryRequestInfo {
+            id: request.id,
+            order_id: request.order_id,
+            deliverer_id: request.deliverer_id, 
+            address: order_address.unwrap_or("".to_string())
+        };
+        request_infos.push(res);
+    }
+
+    let response = ApiResponse{
+        success:true,
+        status_code:200,
+        message:"OK".to_string(),
+        data: Some(request_infos)
+    };
+    response
+}

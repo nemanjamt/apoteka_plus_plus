@@ -10,6 +10,7 @@ import { NavbarAdminComponent } from './components/navbar-admin/navbar-admin.com
 import { NavbarPharmacistComponent } from './components/navbar-pharmacist/navbar-pharmacist.component';
 import { NavbarDelivererComponent } from './components/navbar-deliverer/navbar-deliverer.component';
 import { NavbarCustomerComponent } from './components/navbar-customer/navbar-customer.component';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 
 
 
@@ -22,7 +23,8 @@ import { NavbarCustomerComponent } from './components/navbar-customer/navbar-cus
     NavbarAdminComponent,
     NavbarPharmacistComponent,
     NavbarDelivererComponent,
-    NavbarCustomerComponent
+    NavbarCustomerComponent,
+    ForbiddenComponent
   ],
   imports: [
     CommonModule,

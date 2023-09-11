@@ -1,4 +1,4 @@
-<section style="margin-top: 50px;margin-left:20px;" class="w-75">
+<section *ngIf="orders" style="margin-top: 50px;margin-left:20px;" class="w-75">
     <table class="table table-bordered table-fit mx-auto">
       <thead>
         <tr>
@@ -33,12 +33,27 @@
           </td>
           <td class="text-center"><button class="btn" (click)="onDetailedView(order.id)"><i class="bi bi-search" title="pogledaj detaljnije"></i></button></td>
           <td *ngIf="!(authService.isCustomer() || authService.isDeliverer())" class="text-center">
-            <button *ngIf="canDelete(order)" (click)="deleteOrder(order.id)" type="button" class="btn btn-danger">
+            <button *ngIf="canDelete(order)" (click)="openModal(sureModal, order.id)" type="button" class="btn btn-danger">
               <i class="bi bi-trash" title="delete order"></i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+    <ng-template #sureModal let-modal>
+      <div class="modal-header">
+       <h5 class="modal-title" id="userLabel">Jeste li sigurni da zelite izbrisati proizvod iz narudzbe?</h5>
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">&times;</button>
+        
+      </div>
+      
+    
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="deleteOrder()">Yes</button>
+         <button type="button" class="btn btn-danger" (click)="modal.dismiss()" >No</button>
+        </div>
+       
+    
+    </ng-template> 
   </section>
   

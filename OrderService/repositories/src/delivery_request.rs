@@ -21,6 +21,14 @@ pub fn find_by_deliverer_id_and_order_id(connection : &mut PgConnection, deliver
     .first::<DeliveryRequest>(connection)
 }
 
+pub fn find_by_deliverer_id(connection: &mut PgConnection, deliverer_id:i32) -> Result<Vec<DeliveryRequest>, Error>{
+    delivery_request::table.filter(delivery_request::deliverer_id.eq(deliverer_id))
+    .load::<DeliveryRequest>(connection)
+}
+
+pub fn get_all_requests(connection: &mut PgConnection)-> Result<Vec<DeliveryRequest>, Error>{
+    delivery_request::table.load::<DeliveryRequest>(connection)
+}
 
 pub fn delete_delivery_request(connection: &mut PgConnection, delivery_request_id:i32) -> Result<DeliveryRequest, Error>{
     diesel::delete(delivery_request::table.filter(delivery_request::id.eq(delivery_request_id)))
@@ -35,4 +43,10 @@ pub fn find_by_order_id(connection : &mut PgConnection,  order_id:i32)-> Result<
 pub fn find_by_id(connection : &mut PgConnection,  delivery_request_id:i32)-> Result<DeliveryRequest, Error>{
     delivery_request::table.filter(delivery_request::id.eq(delivery_request_id))
     .first::<DeliveryRequest>(connection)
+}
+
+pub fn delete_delivery_requests_by_order(connection: &mut PgConnection, order_id:i32) -> Result<(), Error>{
+    diesel::delete(delivery_request::table.filter(delivery_request::order_id.eq(order_id)))
+        .execute(connection)
+        .map(|_| ())
 }

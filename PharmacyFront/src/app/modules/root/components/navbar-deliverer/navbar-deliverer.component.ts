@@ -23,4 +23,8 @@ export class NavbarDelivererComponent implements OnInit {
     this.router.navigate(["orders"]);
   }
 
+  onReviewsClick(){
+    this.router.navigate(['/reviews/deliverer'],{queryParams:{id:this.authService.getCurrentlyLoggedId()}})
+  }
+
 }

@@ -10,6 +10,7 @@ export interface OrderWithLoadedItems{
     finished_at: String | null,
     note: string,
     address: string | null,
+    user_id:number,
     items: LoadedOrderItem[]
 
 };

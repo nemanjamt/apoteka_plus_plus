@@ -30,6 +30,17 @@ pub fn find_delivery_requests_by_order_id(order_id:i32)-> Custom<Json<ApiRespons
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
+#[get("/delivery_requests")]
+pub fn find_all_requests()-> Custom<Json<ApiResponse<Vec<DeliveryRequestInfo>>>>{
+    let response = read::find_all_requests();
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+#[get("/delivery_request/deliverer/<deliverer_id>")]
+pub fn find_delivery_requests_by_deliverer_id(deliverer_id:i32)-> Custom<Json<ApiResponse<Vec<DeliveryRequest>>>>{
+    let response = read::find_delivery_requests_by_deliverer_id(deliverer_id);
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+
 #[put("/delivery_request/<request_id>")]
 pub fn approve_request(request_id: i32) -> Json<ApiResponse<DeliveryRequest>>{
     let response = change::approve_delivery_request(request_id);

@@ -25,7 +25,7 @@ pub fn approve_delivery_request(request_id: i32)-> ApiResponse<DeliveryRequest> 
         
  
     match repositories::order::add_deliverer_and_status(connection, found_delivery_request.order_id,
-                                                        found_delivery_request.deliverer_id, "DELIVERY_IN_PROGRESS".to_string()){
+                                                        found_delivery_request.deliverer_id, "ASSIGNED".to_string()){
             Ok(_) => {},
             Err(Error::NotFound)=>{
                 let response = ApiResponse{
@@ -45,6 +45,19 @@ pub fn approve_delivery_request(request_id: i32)-> ApiResponse<DeliveryRequest> 
                 };
                 return response;
             }
+    }
+    match repositories::delivery_request::delete_delivery_requests_by_order(connection, found_delivery_request.order_id){
+        Ok(_) => {},
+        
+        Err(_)=>{
+            let response = ApiResponse{
+                success:false,
+                status_code:500,
+                data: None,
+                message:"Internal error".to_string()
+            };
+            return response;
+        }
     }
    
     

@@ -1,8 +1,8 @@
 <body>
     <main>
       <app-product-view [productId]="productId"></app-product-view>
-      <app-create-review></app-create-review>
-      <app-list-review></app-list-review>
+      <app-create-review [productId]="productId" [productReview]="true" [title]="'Rate product'" *ngIf="canCreateReview()" (notify)="handleNotification()"></app-create-review>
+      <app-list-review [reviews]="reviews"  (notify)="handleNotification()"></app-list-review>
     
     </main>
-  </body>
+</body>

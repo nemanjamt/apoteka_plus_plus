@@ -17,6 +17,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="ms-auto">
               <a
+              style="cursor: pointer;"
                 class="ms-5 text-decoration-none fs-4 fw-medium text-dark"
                 (click)="onOrders()"
                 >Narudzbine</a
@@ -32,8 +33,8 @@
                   <i class="bi bi-person"></i>
                 </button>
                 <div class="dropdown-content">
-                  <button class="w-100 mt-2 border-0 button-style">
-                    <a class="text-decoration-none" href="#">Profil</a>
+                  <button [routerLink]="['user/profile']" class="w-100 mt-2 border-0 button-style">
+                    <a class="text-decoration-none" >Profil</a>
                   </button>
                   <button (click)="logout()"class="w-100 mt-2 border-0 button-style">
                     <a class="text-decoration-none" >Odjavi se</a>

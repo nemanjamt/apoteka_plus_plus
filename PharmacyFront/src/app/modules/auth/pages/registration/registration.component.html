@@ -34,11 +34,11 @@
             />
           </div>
           <div class="mb-0">
-            <label for="formGroupExampleInput1" class="form-label"></label>
+            <label for="formGroupExampleInput2" class="form-label"></label>
             <input
               type="text"
               class="form-control"
-              id="formGroupExampleInput1"
+              id="formGroupExampleInput2"
               style="width:200px;"
               placeholder="username"
               formControlName="username"
@@ -78,13 +78,15 @@
               formControlName="pwConfirm"
             />
           </div>
-          <div class="mb-3">
-            <select class="form-select" aria-label="Default select example">
-              <option value="1">Pharmatcist</option>
-              <option value="2">Deliverer</option>
+          <div *ngIf="authService.isAdmin()" class="mb-3">
+            <select id="select" class="form-select" aria-label="Default select example" formControlName="role">
+              <option value="PHARMACIST">Pharmacist</option>
+              <option value="DELIVERER">Deliverer</option>
             </select>
           </div>
-          <button type="submit" class="btn btn-success">Submit</button>
+          <label *ngIf="success" style="color:green">registration successful</label>
+          <label *ngIf="errorMessage" style="color:red">{{errorMessage}}</label><br>
+          <button [disabled]="!registrationForm.valid" (click)="createUser()" class="btn btn-success">Registrate</button>
         </form>
       </div>
     </section>

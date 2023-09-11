@@ -3,6 +3,7 @@ use models::schema::*;
 use models::order::{Order, NewOrder, ChangeOrder};
 use diesel::result::Error;
 use diesel::prelude::*;
+use diesel::dsl::*;
 use models::order::DateTimeCustom;
 use chrono::{NaiveDateTime, NaiveTime, NaiveDate};
 pub fn find_order_by_id(connection: &mut PgConnection, order_id: i32) -> Result<Order, Error>{
@@ -65,6 +66,21 @@ pub fn add_deliverer_and_status(connection: &mut PgConnection, order_id:i32, del
             .set((orders::deliverer_id.eq(deliverer_id), orders::order_status.eq(status)))
             .returning(orders::all_columns)
             .get_result::<Order>(connection)
+}
+
+pub fn find_user_ordered_product(user_id: i32, product_id: i32, conn: &mut PgConnection) -> Result<bool, Error> {
+    let exists: bool = diesel::select(exists(
+        order_item::table
+            .inner_join(orders::table)
+            .filter(
+                order_item::product_id.eq(product_id)
+                    .and(orders::user_id.eq(user_id))
+                    .and(orders::order_status.eq("FINISHED".to_string()))
+            )
+    ))
+    .get_result(conn)?;
+
+Ok(exists)
 }
 
 pub fn search_orders(connection: &mut PgConnection, query_user_id : Option<i32>, query_delivery:Option<bool>, query_deliverer_id: Option<i32>,

@@ -22,4 +22,8 @@ export class NavbarAdminComponent implements OnInit {
   onOrders(){
     this.router.navigate(["orders"]);
   }
+
+  onCreateProduct(){
+    this.router.navigate(["create-product"]);
+  }
 }

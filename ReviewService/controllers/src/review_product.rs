@@ -21,9 +21,16 @@ pub fn get_review_product_by_id(review_id: i32) -> Custom<Json<ApiResponse<Revie
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
+#[get("/review_product/find_by_user_and_product/<user_id>/<product_id>")]
+pub  fn get_reviews_product_by_user_and_product_id(user_id:i32, product_id: i32) -> Custom<Json<ApiResponse<ReviewProduct>>>{
+    let response = read::find_reviews_product_by_user_and_product_id(user_id, product_id);
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+
+
 #[get("/reviews_product/<product_id>")]
-pub fn get_reviews_product_by_product_id(product_id: i32) -> Custom<Json<ApiResponse<Vec<ReviewProduct>>>>{
-    let response = read::find_reviews_product_by_product_id(product_id);
+pub async fn get_reviews_product_by_product_id(product_id: i32) -> Custom<Json<ApiResponse<Vec<ReviewProductDetailed>>>>{
+    let response = read::find_reviews_product_by_product_id(product_id).await;
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
@@ -45,9 +52,15 @@ pub fn report_review_product(review_id:i32)-> Custom<Json<ApiResponse<()>>>{
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
+#[put("/review_product/unreport/<review_id>")]
+pub fn unreport_review_product(review_id:i32)-> Custom<Json<ApiResponse<()>>>{
+    let response = change::unreport_review_product(review_id);
+    Custom(rocket::http::Status::new(response.status_code), Json(response))
+}
+
 #[get("/review_product/reported")]
-pub fn get_reported_reviews() -> Custom<Json<ApiResponse<Vec<ReviewProduct>>>>{
-    let response = read::get_reported_reviews_product();
+pub async fn get_reported_reviews() -> Custom<Json<ApiResponse<Vec<ReviewProductDetailed>>>>{
+    let response = read::get_reported_reviews_product().await;
     Custom(rocket::http::Status::new(response.status_code), Json(response))
 }
 
