@@ -1,7 +1,7 @@
 from flask import request
 from app import app
 from services import order as order_service
-
+from flask_jwt_extended import jwt_required
 
 @app.route("/order/<int:order_id>", methods=['GET', 'PUT', 'DELETE'])
 def order(order_id):
@@ -19,6 +19,7 @@ def create_order():
 
 
 @app.route("/order/search", methods=['GET'])
+@jwt_required()
 def search_order():
     return order_service.search_order()
 

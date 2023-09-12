@@ -4,6 +4,7 @@ import { Order } from '../../types/order';
 import { OrdersService } from '../../services/orders.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-orders-view',
@@ -14,17 +15,22 @@ export class OrdersViewComponent implements OnInit {
   searchParams: String = '';
   orders ?: Order[];
   status_options : String[] = []
-  selectedStatus!: string; // Inicijalizujte po potrebi
-
+  selectedFilterStatus: string = "";
+  isExpanded !: boolean;
+  httpSearchParams!: HttpParams;
   choosedOrderId !: number;
   modalRef!: NgbModalRef;
+  possible_options : String[] = ["CREATED","ACCEPTED","REJECTED",
+  "READY","FINISHED","DELIVERY IN PROGRESS","CANCELLED","DELIVERED","ASSIGNED", "OVER TAKEN"];
   constructor(
     public authService: AuthService,
     private orderService: OrdersService,
     private router: Router,
     private modalService: NgbModal,
 
-  ) {}
+  ) {
+    this.httpSearchParams = new HttpParams();
+  }
 
   ngOnInit(): void {
     this.checkSearchParams();
@@ -33,8 +39,12 @@ export class OrdersViewComponent implements OnInit {
     
   }
 
+  toggleFilter(){
+    this.isExpanded = !this.isExpanded;
+  }
+
   loadOrders(){
-    this.orderService.getOrders(this.searchParams).subscribe({
+    this.orderService.getOrdersSearch(this.httpSearchParams).subscribe({
       next: (res) => {
         this.orders = res.data;
         console.log(this.orders);
@@ -43,10 +53,17 @@ export class OrdersViewComponent implements OnInit {
     });
   }
 
+  onFilterStatusChange(){
+    if(this.selectedFilterStatus === ""){
+      this.httpSearchParams = this.httpSearchParams.delete("order_status");
+    }else{
+      this.httpSearchParams = this.httpSearchParams.set("order_status", this.selectedFilterStatus);
+    }
+    this.loadOrders();
+
+  }
+
   changedStatus(order:Order){
-    console.log("Promijenjen status");
-    console.log(order);
-    console.log(this.selectedStatus);
     this.orderService.changeStatus(order.id, order.order_status).subscribe({
       next:(res) =>{
         order = res.data;
@@ -68,10 +85,12 @@ export class OrdersViewComponent implements OnInit {
   }
   checkSearchParams() {
     if (this.authService.isDeliverer()) {
+      this.httpSearchParams = this.httpSearchParams.set("deliverer_id",this.authService.getCurrentlyLoggedId());
       this.searchParams +=
         'deliverer_id=' + this.authService.getCurrentlyLoggedId() + '&';
       console.log(this.searchParams);
     } else if (this.authService.isCustomer()) {
+      this.httpSearchParams = this.httpSearchParams.set("user_id",this.authService.getCurrentlyLoggedId());
       this.searchParams +=
         'user_id=' + this.authService.getCurrentlyLoggedId() + '&';
       console.log(this.searchParams);

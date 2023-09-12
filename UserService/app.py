@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     f'postgresql://postgres:root@localhost:5432/users_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config["JWT_SECRET_KEY"] = secret_key
+app.config["JWT_SECRET_KEY"] = "secret-key"
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=0.5)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 app.config["JWT_TOKEN_LOCATION"] = ["headers", "json"]

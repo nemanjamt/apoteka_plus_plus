@@ -1,1 +1,31 @@
-<p>business-report works!</p>
+<div>
+    
+<div style="margin-top: 50px;">
+    <div style="display: flex; justify-content: center;">
+        <div style="margin-right: 160px;">
+          <input type="date" min="{{minDate}}" max="{{maxDate}}" style="cursor: pointer;" #startDate (change)="onDateChange(startDate.value)">
+        </div>
+        <div>
+          <input type="date" #endDate min="{{minDate}}" max="{{maxDate}}" style="cursor: pointer;" (change)="onEndDateChange(endDate.value)">
+        </div>
+    </div>
+    
+    <div *ngIf="choosedStartDate === undefined && choosedEndDate ===undefined" style="text-align: center; margin: 20px;">
+      <p>IZABERITE OPSEG DATUMA</p>
+    </div>
+    <div  class="charts-container"  style="margin-top:20px">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      
+        
+      </div>
+      <div *ngIf="reportItems.length > 0" style="margin:20px;">
+        <p>Ukupan prihod: {{totalValue}} <b>RSD</b></p> 
+        <p> Prosjecan prihod: {{roundedAverageValue}} <b>RSD</b></p>
+      </div>
+</div>
+</div>

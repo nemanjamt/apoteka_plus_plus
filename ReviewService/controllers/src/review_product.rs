@@ -7,8 +7,7 @@ use rocket_validation::{ Validated};
 use services::review_product::*;
 use rocket::response::status::Custom;
 use models::review_product::*;
-// #[get("/review/product/<review_id>")]
-// pub fn find_review_product(review_id: i32) -> Custom<J
+
 #[post("/review_product", format="application/json", data="<new_review_product_request>")]
 pub fn create_review_product(new_review_product_request: Validated<Json<NewReviewProduct>>) -> Custom<Json<ApiResponse<ReviewProduct>>>{
     let response = create::create_review_product(new_review_product_request);

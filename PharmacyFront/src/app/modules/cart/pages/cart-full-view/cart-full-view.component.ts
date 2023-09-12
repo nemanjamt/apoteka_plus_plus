@@ -112,7 +112,7 @@ export class CartFullViewComponent implements OnInit {
       items: orderItems
     };
     this.orderService.createOrder(requestObject).subscribe({
-      next: (res)=>{ this.successCreated = true; setTimeout(()=>{this.successCreated = false;}, 1200);},
+      next: (res)=>{ this.successCreated = true; setTimeout(()=>{this.successCreated = false;}, 1200); sessionStorage.clear();},
       error: (err)=>{}
     });
   }

@@ -107,13 +107,15 @@ pub fn search_orders(connection: &mut PgConnection, query_user_id : Option<i32>,
         let date = NaiveDate::from_ymd(query_start_date.year, query_start_date.month, query_start_date.day);
         let time = NaiveTime::from_hms(0, 0, 0);
         let datetime = NaiveDateTime::new(date, time);
-        query = query.filter(created_at.ge(datetime));
+        println!("{:?}",datetime);
+        query = query.filter(finished_at.ge(datetime));
     }
     if let Some(query_end_date) = query_end_date {
-        let date = NaiveDate::from_ymd(query_end_date.year, query_end_date.month, query_end_date.day+1);
-        let time = NaiveTime::from_hms(0, 0, 0);
+        let date = NaiveDate::from_ymd(query_end_date.year, query_end_date.month, query_end_date.day);
+        let time = NaiveTime::from_hms(23, 59, 59);
         let datetime = NaiveDateTime::new(date, time);
-        query = query.filter(created_at.le(datetime));
+        println!("{:?}",datetime);
+        query = query.filter(finished_at.le(datetime));
     }
 
     

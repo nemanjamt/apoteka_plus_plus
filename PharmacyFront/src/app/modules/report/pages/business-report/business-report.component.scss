@@ -1,0 +1,17 @@
+.charts-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Visina je postavljena na 100% visine viewport-a */
+  width: 100vw; /* Širina je postavljena na 100% širine viewport-a */
+}
+
+apx-chart {
+  width: 60%; /* Širina je postavljena na 50% širine roditeljskog elementa */
+  height: 60%; /* Visina je postavljena na 50% visine roditeljskog elementa */
+}
+
+  input[type=date]::-webkit-clear-button,
+input[type=date]::-webkit-inner-spin-button {
+    display: none;
+}

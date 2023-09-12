@@ -66,7 +66,7 @@
           <div class="mb-2">
             <label *ngIf="successChanged" style="margin-bottom: 10px; color: green;"> data successful changed</label>
           <button style="margin-right: 5px;" *ngIf="isMyProfile || authService.isAdmin()" [disabled]="!form.valid || form.pristine" type="submit" (click)="saveChanges()" class="btn btn-success">Save changes</button>
-          <button *ngIf="!isMyProfile && !authService.isPharmacist()"  type="submit" (click)="blockUser()" class="btn btn-success">block user</button>
+          <button *ngIf="!isMyProfile && !authService.isPharmacist() && !authService.isDeliverer()"  type="submit" (click)="blockUser()" class="btn btn-success">block user</button>
           </div>
           
         </form>

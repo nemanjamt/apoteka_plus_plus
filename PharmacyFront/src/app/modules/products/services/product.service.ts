@@ -66,7 +66,7 @@ export class ProductService {
     }else{
       let productIds = JSON.parse(sessionStorage.getItem("productIds") as string);
       for (let i = 0; i < quantity; i++) {
-        productIds.push(productId);
+        productIds.push(Number(productId));
       }
       console.log(sessionStorage.getItem("productIds"));
       sessionStorage.setItem("productIds", JSON.stringify(productIds));

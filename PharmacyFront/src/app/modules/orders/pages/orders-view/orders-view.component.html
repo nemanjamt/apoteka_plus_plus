@@ -1,4 +1,46 @@
 <section *ngIf="orders" style="margin-top: 50px;margin-left:20px;" class="w-75">
+  <section *ngIf="orders">
+    <section class="container-fluid">
+        <div class="d-flex justify-content-between">
+          <button
+            id="filter-button"
+            class="btn btn-success my-4"
+            style="width: 130px"
+            (click)="toggleFilter()"
+          >
+            Filter
+          </button>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div
+              id="filter-holder"
+              class="col-6"
+              [style.height]="isExpanded ? '250px' : '0'"
+              style="height: 0; overflow: auto; transition: 0.5s ease-in-out"
+            >
+              <div class="form-check mb-4">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  [(ngModel)]="selectedFilterStatus"
+                  (change)="onFilterStatusChange()"
+                >
+                  <option value="" selected>ALL</option>
+                  <option
+                    *ngFor="let status of possible_options"
+                    value="{{ status }}"
+                  >
+                    {{ status }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</section>
     <table class="table table-bordered table-fit mx-auto">
       <thead>
         <tr>
