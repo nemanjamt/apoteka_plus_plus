@@ -1,4 +1,6 @@
 from flask import request
+
+from decorators.auth import jwt_required_custom
 from services import product as product_service
 from app import app
 
@@ -14,6 +16,7 @@ def product_by_id(product_id):
 
 
 @app.route("/product", methods=['POST'])
+@jwt_required_custom()
 def create_product():
     return product_service.create_product()
 

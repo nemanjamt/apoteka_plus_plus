@@ -1,5 +1,6 @@
 from flask import request
 from app import app
+from decorators.auth import jwt_required_custom
 from services import user as user_service
 from shared.response_helper import generate_response
 
@@ -18,6 +19,7 @@ def get_user_info_basic():
 
 
 @app.route("/users", methods=['GET', 'POST'])
+@jwt_required_custom()
 def find_all_users():
     if request.method == 'GET':
         return user_service.get_users()
@@ -36,21 +38,25 @@ def users_by_id(user_id):
 
 
 @app.route("/users/block/<int:user_id>", methods=['PUT'])
+@jwt_required_custom()
 def block_user(user_id):
     return user_service.block_user(user_id)
 
 
 @app.route("/users/unblock/<int:user_id>", methods=['PUT'])
+@jwt_required_custom()
 def unblock_user(user_id):
     return user_service.unblock_user(user_id)
 
 
 @app.route("/user/pharmacists", methods=['GET'])
+@jwt_required_custom()
 def get_pharmacists():
     return user_service.get_pharmacists()
 
 
 @app.route("/user/deliverers", methods=['GET'])
+@jwt_required_custom()
 def get_deliverers():
     return user_service.get_deliverers()
 
