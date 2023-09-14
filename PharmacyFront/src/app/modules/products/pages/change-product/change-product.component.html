@@ -6,7 +6,7 @@
             <input
               formControlName="productName"
               type="text"
-              placeholder="name of product"
+              placeholder="naziv proizvoda"
               class="form-control"
             />
             <br />
@@ -15,7 +15,7 @@
               formControlName="price"
               class="form-control"
               type="number"
-              placeholder="price of product"
+              placeholder="cijena proizvoda"
             />
             <br />
             <div class="d-flex align-items-center">
@@ -36,7 +36,7 @@
             <textarea
               formControlName="description"
               class="form-control mt-3"
-              placeholder="description.."
+              placeholder="opis"
               rows="4"
               cols="50"
             ></textarea>
@@ -50,7 +50,7 @@
                 role="switch"
               />
               <label class="form-check-label" for="checkbox1">
-                available
+                dostupno
               </label>
             </div>
 
@@ -59,7 +59,7 @@
               (click)="onChangeProduct()"
               class="btn btn-success mt-3"
             >
-              save changes
+              sacuvaj promjene
             </button>
           </form>
         </div>

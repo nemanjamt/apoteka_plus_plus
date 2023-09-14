@@ -22,7 +22,7 @@
               type="text"
               class="form-control"
               id="formGroupExampleInput"
-              placeholder="First name"
+              placeholder="Ime"
               formControlName="firstName"
             />
           </div>
@@ -34,7 +34,7 @@
               class="form-control"
               id="formGroupExampleInput1"
               style="width:200px;"
-              placeholder="Last name"
+              placeholder="Prezime"
               formControlName="lastName"
             />
           </div>
@@ -46,7 +46,7 @@
               class="form-control"
               id="formGroupExampleInput1"
               style="width:200px;"
-              placeholder="username"
+              placeholder="korisnicko ime"
               formControlName="username"
             />
           </div>
@@ -59,14 +59,14 @@
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               style="width:200px;"
-              placeholder="Email address"
+              placeholder="Email adresa"
               formControlName="email"
             />
           </div>
           <div class="mb-2">
-            <label *ngIf="successChanged" style="margin-bottom: 10px; color: green;"> data successful changed</label>
-          <button style="margin-right: 5px;" *ngIf="isMyProfile || authService.isAdmin()" [disabled]="!form.valid || form.pristine" type="submit" (click)="saveChanges()" class="btn btn-success">Save changes</button>
-          <button *ngIf="!isMyProfile && !authService.isPharmacist() && !authService.isDeliverer()"  type="submit" (click)="blockUser()" class="btn btn-success">block user</button>
+            <label *ngIf="successChanged" style="margin-bottom: 10px; color: green;"> podaci uspjesno promjenjeni</label>
+          <button style="margin-right: 5px; margin-bottom: 5px;" *ngIf="isMyProfile || authService.isAdmin()" [disabled]="!form.valid || form.pristine" type="submit" (click)="saveChanges()" class="btn btn-success">Sacuvaj promjene</button> <br>
+          <button *ngIf="!isMyProfile && !authService.isPharmacist() && !authService.isDeliverer()"  type="submit" (click)="blockUser()" class="btn btn-success">blokiraj korisnika</button>
           </div>
           
         </form>

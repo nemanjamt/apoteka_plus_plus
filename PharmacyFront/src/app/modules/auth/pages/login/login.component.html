@@ -18,7 +18,7 @@
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               formControlName="username"
-              placeholder="username"
+              placeholder="korisnicko ime"
             />
           </div>
           <div class="mb-3">
@@ -27,14 +27,14 @@
               type="password"
               class="form-control"
               id="exampleInputPassword1"
-              placeholder="password"
+              placeholder="lozinka"
               formControlName="password"
             />
           </div>
           <div *ngIf="errMessage" class="text-danger err-mes">
             {{errMessage}}
         </div>
-          <button  (click)="submit()" [disabled]="form.invalid" class="btn btn-success">sign in</button>
+          <button  (click)="submit()" [disabled]="form.invalid" class="btn btn-success">prijavi se</button>
         </form>
       </div>
     </section>

@@ -3,11 +3,11 @@
     <table class="table table-bordered table-fit mx-auto">
       <thead>
         <tr>
-          <th scope="col">Image</th>
-          <th scope="col">Product name</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Unit price</th>
-          <th scope="col">Total</th>
+          <th scope="col">Slika</th>
+          <th scope="col">ime prozivoda</th>
+          <th scope="col">kolicina</th>
+          <th scope="col">cijena po komadu</th>
+          <th scope="col">ukupna cijena</th>
         </tr>
       </thead>
       <tbody>
@@ -63,7 +63,7 @@
         <div>
           <textarea
             [(ngModel)]="note"
-            placeholder="enter a note"
+            placeholder="unesite napomenu"
             rows="4"
             cols="50"
             class="form-control"
@@ -79,7 +79,7 @@
               (ngModelChange)="onDeliveryChange()"
             />
             <label class="form-check-label" for="flexSwitchCheckDefault"
-              >delivery</label
+              >dostava</label
             >
           </div>
           <br />
@@ -88,7 +88,7 @@
             *ngIf="delivery"
             [(ngModel)]="address"
             (ngModelChange)="onDeliveryChange()"
-            placeholder="enter a address"
+            placeholder="unesite adresu"
             rows="2"
             cols="50"
             class="form-control mb-3"

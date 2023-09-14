@@ -8,7 +8,7 @@
             style="width: 130px"
             (click)="toggleFilter()"
           >
-            Filter
+            Filtriraj
           </button>
         </div>
         <div class="container-fluid">
@@ -76,7 +76,7 @@
           <td class="text-center"><button class="btn" (click)="onDetailedView(order.id)"><i class="bi bi-search" title="pogledaj detaljnije"></i></button></td>
           <td *ngIf="!(authService.isCustomer() || authService.isDeliverer())" class="text-center">
             <button *ngIf="canDelete(order)" (click)="openModal(sureModal, order.id)" type="button" class="btn btn-danger">
-              <i class="bi bi-trash" title="delete order"></i>
+              <i class="bi bi-trash" title="izbrisi narudzbu"></i>
             </button>
           </td>
         </tr>

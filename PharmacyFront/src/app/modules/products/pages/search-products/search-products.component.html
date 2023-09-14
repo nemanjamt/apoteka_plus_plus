@@ -4,7 +4,7 @@
         <div class="row">
           <form [formGroup]="form">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" formControlName="searchValue" (change)="onSearchChange()" placeholder="Search..." />
+              <input type="text" class="form-control" formControlName="searchValue" (change)="onSearchChange()" placeholder="Pretrazi..." />
               <button class="btn btn-success" [disabled]="form.invalid" (click)="clickOnSearch()" type="button" style="width: 70px">
                 <i class="bi bi-search"></i>
               </button>
@@ -21,7 +21,7 @@
               style="width: 130px"
               (click)="toggleFilter()"
             >
-              Filter
+              Filtriraj
             </button>
             <button
               id="sort-button"
@@ -29,7 +29,7 @@
               style="width: 130px"
               (click)="toggleSort()"
             >
-              Sort
+              Sortiraj
             </button>
           </div>
           <div class="container-fluid">
@@ -46,14 +46,14 @@
                     class="form-control"
                     [(ngModel)]="minPrice"
                     (change)="doFilterAndSort();"
-                    placeholder="Price of "
+                    placeholder="Cijena od "
                   />
                   <input
                     type="number"
                     class="form-control"
                     [(ngModel)]="maxPrice"
                     (change)="doFilterAndSort();"
-                    placeholder="Price up to"
+                    placeholder="Cijena do"
                   />
                 </div>
                 <div class="form-check mb-4">
@@ -65,7 +65,7 @@
                     id="flexCheckDefault"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
-                    Show just available products
+                    Prikazi samo dostupne proizvode
                   </label>
                 </div>
               </div>
@@ -81,10 +81,10 @@
                   [(ngModel)]="selectedValue"
                   (ngModelChange)="onSelectChange()"
                 >
-                  <option value="1">Sort by price ascending</option>
-                  <option value="2">Sort by price descending</option>
-                  <option value="3">Sort by name ascending</option>
-                  <option value="4">Sort by name descending</option>
+                  <option value="1">Sortiraj po cijeni rastuce</option>
+                  <option value="2">Sortiraj po cijeni opadajuce</option>
+                  <option value="3">Sortiraj po imenu rastuce</option>
+                  <option value="4">Sortiraj po imenu opadajuce</option>
                 </select>
               </div>
             </div>

@@ -12,9 +12,9 @@
   <div class="row">
     <form [formGroup]="form">
       <textarea class="form-control" placeholder="unesite razlog blokiranja" rows="4" cols="40" formControlName="reason"></textarea>
-      <label *ngIf="successBlock" style="margin-bottom: 10px; color:green;">successful block user</label><br>
-      <label *ngIf="successBlock == false" style="margin-bottom: 10px; color:red;">error: user not blocked</label><br>
-      <button [disabled]="!form.valid" style="margin-top: 10px" (click)="blockUser()" class="btn btn-success">BLOCK</button>
+      <label *ngIf="successBlock" style="margin-bottom: 10px; color:green;">uspjesno blokiran korisnik</label><br>
+      <label *ngIf="successBlock == false" style="margin-bottom: 10px; color:red;">greska: korisnik nije blokiran</label><br>
+      <button [disabled]="!form.valid" style="margin-top: 10px" (click)="blockUser()" class="btn btn-success">BLOKIRAJ</button>
     </form>
     
   </div>

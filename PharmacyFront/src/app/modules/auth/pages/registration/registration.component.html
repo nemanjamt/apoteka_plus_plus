@@ -18,7 +18,7 @@
               type="text"
               class="form-control"
               id="formGroupExampleInput"
-              placeholder="First name"
+              placeholder="Ime"
               formControlName="firstName"
             />
           </div>
@@ -29,7 +29,7 @@
               class="form-control"
               id="formGroupExampleInput1"
               style="width:200px;"
-              placeholder="Last name"
+              placeholder="Prezime"
               formControlName="lastName"
             />
           </div>
@@ -40,7 +40,7 @@
               class="form-control"
               id="formGroupExampleInput2"
               style="width:200px;"
-              placeholder="username"
+              placeholder="korisnicko ime"
               formControlName="username"
             />
           </div>
@@ -52,7 +52,7 @@
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               style="width:200px;"
-              placeholder="Email address"
+              placeholder="Email adresa"
               formControlName="email"
             />
           </div>
@@ -63,7 +63,7 @@
               class="form-control"
               id="exampleInputPassword1"
               style="width:200px;"
-              placeholder="Password"
+              placeholder="lozinka"
               formControlName="password"
             />
           </div>
@@ -74,19 +74,19 @@
               class="form-control"
               id="exampleInputPassword2"
               style="width:200px;"
-              placeholder="confirm password"
+              placeholder="potvrdi lozinku"
               formControlName="pwConfirm"
             />
           </div>
           <div *ngIf="authService.isAdmin()" class="mb-3">
             <select id="select" class="form-select" aria-label="Default select example" formControlName="role">
-              <option value="PHARMACIST">Pharmacist</option>
-              <option value="DELIVERER">Deliverer</option>
+              <option value="PHARMACIST">Apotekar</option>
+              <option value="DELIVERER">Dostavljac</option>
             </select>
           </div>
-          <label *ngIf="success" style="color:green">registration successful</label>
+          <label *ngIf="success" style="color:green">uspjesna registracija</label>
           <label *ngIf="errorMessage" style="color:red">{{errorMessage}}</label><br>
-          <button [disabled]="!registrationForm.valid" (click)="createUser()" class="btn btn-success">Registrate</button>
+          <button [disabled]="!registrationForm.valid" (click)="createUser()" class="btn btn-success">Registruj</button>
         </form>
       </div>
     </section>

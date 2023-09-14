@@ -17,7 +17,7 @@
     </div>
     <ul class="list-group list-group-flush">
     <div class="list-group-item d-flex justify-content-between">
-        <span>Price</span>
+        <span>Cijena</span>
         <span>{{product.price}} <b>RSD</b></span>
     </div>
     </ul>
@@ -26,12 +26,12 @@
     >
     <button *ngIf="authService.isCustomer() && product.available"  (click)="addInCart(product.id)" class="btn btn-success gas" type="button">
         <i class="bi bi-cart3 ikonica"></i>
-        <span id="add-span-{{product.id}}">Add in cart</span>
+        <span id="add-span-{{product.id}}">Dodaj u korpu</span>
     </button>
     
     <button type="button" (click)="showFullViewProduct(product.id)" class="btn btn-success card-link text-decoration-none text-dark"
-        >Show item</button>
+        >Prikaži</button>
     </div>
 </div>
 <span id="span-{{product.id}}" class="ms-3 text-success added-in-card-js invisible"
-                  >Added in cart!</span>
+                  >Dodato u korpu!</span>

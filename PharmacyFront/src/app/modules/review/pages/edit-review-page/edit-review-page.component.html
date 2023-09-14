@@ -2,7 +2,7 @@
     <div class="container">
       <div class="row">
         <div class="col-6">
-          <h2>Rate the product</h2>
+          <h2>Ocijeni proizvod</h2>
           <form [formGroup]="reviewForm">
             <div class="rating justify-content-end">
               <input
@@ -89,7 +89,7 @@
             <div class="form-floating">
               <textarea
                 class="form-control"
-                placeholder="Leave a comment here"
+                placeholder="Ostavi komentar ovde.."
                 id="floatingTextarea2"
                 style="height: 100px"
                 formControlName = "comment"
@@ -97,7 +97,7 @@
               <label for="floatingTextarea2"></label>
             </div>
             <button [disabled]="!reviewForm.valid && reviewForm.pristine" (click)="changeReview()" type="submit" class="btn btn-primary mt-3">
-              edit review
+              izmijeni recenziju
             </button>
           </form>
         </div>

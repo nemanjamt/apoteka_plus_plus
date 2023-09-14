@@ -13,11 +13,11 @@
       <table class="table table-bordered table-fit mx-auto">
         <thead>
           <tr>
-            <th scope="col">Image</th>
-            <th scope="col">Product name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Unit price</th>
-            <th scope="col">Total</th>
+            <th scope="col">Slika</th>
+            <th scope="col">ime prozivoda</th>
+            <th scope="col">kolicina</th>
+            <th scope="col">cijena po komadu</th>
+            <th scope="col">ukupna cijena</th>
           </tr>
         </thead>
 
@@ -72,7 +72,7 @@
           </tr>
 
           <tr>
-            <td class="text-end pe-2 fw-medium" colspan="4">Total:</td>
+            <td class="text-end pe-2 fw-medium" colspan="4">Ukupno:</td>
             <td class="text-end pe-2" colspan="5">{{ getTotal() }}</td>
           </tr>
         </tbody>
@@ -84,7 +84,7 @@
           <textarea
             [readonly]="!isEditable()"
             formControlName="note"
-            placeholder="enter a note"
+            placeholder="unesite napomenu"
             rows="4"
             cols="50"
             class="form-control"
@@ -103,7 +103,7 @@
               id="flexSwitchCheckDefault"
             />
             <label class="form-check-label mb-3" style="margin-left: 5px;" for="flexSwitchCheckDefault">
-              delivery
+              dostava
             </label>
             </div>
             
@@ -125,14 +125,14 @@
             [readonly]="!isEditable()"
             *ngIf="form.value.address"
             formControlName="address"
-            placeholder="enter a address"
+            placeholder="unesite adresu"
             rows="2"
             cols="50"
             class="form-control mb-3"
           ></textarea>
 
           <label *ngIf="successChanged" style="color: green"
-            >successful changed order</label
+            >uspjesno promjenjena narudzba</label
           ><br /><br />
           <button
             [disabled]="!form.valid || form.pristine"
@@ -140,7 +140,7 @@
             (click)="saveChanges()"
             class="btn btn-success"
           >
-            SAVE CHANGES
+            Sacuvaj promjene
           </button>
         </div>
         <div>
@@ -154,7 +154,7 @@
             "
           >
             <app-create-review
-              [title]="'Rate deliverer'"
+              [title]="'Recenzija dostavljaca'"
               (notify)="handleNotification()"
               [delivererReview]="true"
               [delivererId]="order.deliverer_id"
@@ -165,7 +165,7 @@
             <app-deliverer-review
               [review]="reviewDeliverer"
               (notify)="handleNotification()"
-              [title]="'Deliverer review'"
+              [title]="'Recenzija dostavljaca'"
             ></app-deliverer-review>
           </div>
         </div>
@@ -183,10 +183,10 @@
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-success" (click)="deleteItem()">
-        Yes
+        Da
       </button>
       <button type="button" class="btn btn-danger" (click)="modal.dismiss()">
-        No
+        Ne
       </button>
     </div>
   </ng-template>
