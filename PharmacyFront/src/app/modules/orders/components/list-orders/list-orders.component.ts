@@ -25,7 +25,7 @@ export class ListOrdersComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private orderService: OrdersService,
+    public orderService: OrdersService,
     private router: Router,
     private modalService: NgbModal,
 

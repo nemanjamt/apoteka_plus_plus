@@ -24,7 +24,7 @@ export class OrdersViewComponent implements OnInit {
   "READY","FINISHED","DELIVERY IN PROGRESS","CANCELLED","DELIVERED","ASSIGNED", "OVER TAKEN"];
   constructor(
     public authService: AuthService,
-    private orderService: OrdersService,
+    public orderService: OrdersService,
     private router: Router,
     private modalService: NgbModal,
 

@@ -19,9 +19,13 @@
           <td class="text-center" *ngIf="order.address == null"><i class="bi bi-slash-lg"></i></td>
           <td>
             <select  class="form-select" aria-label="Default select example"  [(ngModel)]="order.order_status" (change)="changedStatus(order)">
-              <option selected value="{{order.order_status}}">{{order.order_status}}</option>
-              <option *ngFor="let status of status_options" value="{{status}}" >{{status}}</option>
+             
+              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{orderService.translateToSerbianStatus(status)}}</option>
             </select>
+            <!-- <select  class="form-select" aria-label="Default select example"  [(ngModel)]="order.order_status" (change)="changedStatus(order)">
+              <option selected value="{{order.order_status}}">{{orderService.translateToSerbianStatus(order.order_status)}}</option>
+              <option *ngFor="let status of status_options" value="{{status}}" >{{orderService.translateToSerbianStatus(status)}}</option>
+            </select> -->
           </td>
           <td class="text-center"><button class="btn" (click)="onDetailedView(order.id)"><i class="bi bi-search" title="pogledaj detaljnije"></i></button></td>
           <td  class="text-center">

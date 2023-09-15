@@ -117,4 +117,30 @@ export class OrdersService {
     "READY","ASSIGNED","OVER TAKEN","DELIVERY IN PROGRESS","DELIVERED","CANCELLED","FINISHED"];
   }
 
+  translateToSerbianStatus(status:String):String{
+    if(status === "CREATED"){
+      return "KREIRANA";
+    }else if(status === "ACCEPTED"){
+      return "PRIHVACENA";
+    }else if(status === "REJECTED"){
+      return "ODBIJENA";
+    }else if(status === "READY"){
+      return "SPREMNA";
+    }else if(status === "ASSIGNED"){
+      return "DODJELJENA";
+    }else if(status === "OVER TAKEN"){
+      return "PREUZETA";
+    }else if(status === "DELIVERY IN PROGRESS"){
+      return "DOSTAVA U TOKU";
+    }else if(status === "DELIVERED"){
+      return "DOSTAVLJENA";
+    }else if (status === "CANCELLED"){
+      return "OTKAZANA";
+    }else if(status === "FINISHED"){
+      return "ZAVRSENA";
+    }else{
+      return "ZAVRSENA";
+    }
+  }
+
 }

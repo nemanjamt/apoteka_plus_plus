@@ -23,7 +23,7 @@ export class AdminOrdersCustomerSearchComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private orderService: OrdersService
+    public orderService: OrdersService
   ) {
     this.httpParams = new HttpParams();
     this.possible_options = orderService.getAdminPossibleStates();
@@ -55,7 +55,9 @@ export class AdminOrdersCustomerSearchComponent implements OnInit {
             next: (res) => {this.orders = res.data;}
           })
         },
-        error: (err) => {},
+        error: (err) => {
+          this.orders = [];
+        },
       });
   }
 

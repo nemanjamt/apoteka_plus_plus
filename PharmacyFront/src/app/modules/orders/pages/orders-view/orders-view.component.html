@@ -26,12 +26,12 @@
                   [(ngModel)]="selectedFilterStatus"
                   (change)="onFilterStatusChange()"
                 >
-                  <option value="" selected>ALL</option>
+                  <option value="" selected>SVE</option>
                   <option
                     *ngFor="let status of possible_options"
                     value="{{ status }}"
                   >
-                    {{ status }}
+                  {{orderService.translateToSerbianStatus(status)}}
                   </option>
                 </select>
               </div>
@@ -62,15 +62,15 @@
           <td>
             <select *ngIf="!(authService.isCustomer() || authService.isDeliverer())" class="form-select" aria-label="Default select example"  [(ngModel)]="order.order_status" (change)="changedStatus(order)">
               <!-- <option selected value="{{order.order_status}}">{{order.order_status}}</option> -->
-              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{status}}</option>
+              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{orderService.translateToSerbianStatus(status)}}</option>
             </select>
             <select *ngIf="authService.isDeliverer()" class="form-select" aria-label="Default select example" [disabled]="order.order_status != 'DELIVERY IN PROGRESS'" [(ngModel)]="order.order_status" (change)="changedStatus(order)">
               <!-- <option selected value="{{order.order_status}}">{{order.order_status}}</option> -->
-              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{status}}</option>
+              <option *ngFor="let status of status_options" value="{{status}}" [selected]="status === order.order_status" >{{orderService.translateToSerbianStatus(status)}}</option>
             </select>
             <select *ngIf="authService.isCustomer()" class="form-select" aria-label="Default select example" [disabled]="order.order_status != 'CREATED'" [(ngModel)]="order.order_status" (change)="changedStatus(order)">
-              <option selected value="{{order.order_status}}">{{order.order_status}}</option>
-              <option *ngFor="let status of status_options" value="{{status}}" >{{status}}</option>
+              <option selected value="{{order.order_status}}">{{orderService.translateToSerbianStatus(order.order_status)}}</option>
+              <option *ngFor="let status of status_options" value="{{status}}" >{{orderService.translateToSerbianStatus(status)}}</option>
             </select>
           </td>
           <td class="text-center"><button class="btn" (click)="onDetailedView(order.id)"><i class="bi bi-search" title="pogledaj detaljnije"></i></button></td>

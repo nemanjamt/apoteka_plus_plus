@@ -32,12 +32,12 @@
                       [(ngModel)]="selectedFilterStatus"
                       (change)="onFilterStatusChange()"
                     >
-                      <option value="" selected>ALL</option>
+                      <option value="" selected>SVE</option>
                       <option
                         *ngFor="let status of possible_options"
                         value="{{ status }}"
                       >
-                        {{ status }}
+                      {{orderService.translateToSerbianStatus(status)}}
                       </option>
                     </select>
                   </div>
