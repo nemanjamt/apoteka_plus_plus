@@ -22,9 +22,6 @@ jwt = JWTManager(app)
 with app.app_context():
     db.create_all()
 
-    # db.session.add(User('marko','markovic','marko@gmail.com'))
-    # db.session.commit()
-
 from model import User
 from routes import user
 

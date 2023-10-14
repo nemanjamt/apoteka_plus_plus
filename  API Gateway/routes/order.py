@@ -2,7 +2,6 @@ from flask import request
 from app import app
 from decorators.auth import jwt_required_custom
 from services import order as order_service
-from flask_jwt_extended import jwt_required
 
 
 @app.route("/order/<int:order_id>", methods=['GET', 'PUT', 'DELETE'])

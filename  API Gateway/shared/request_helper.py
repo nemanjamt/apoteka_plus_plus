@@ -1,23 +1,11 @@
 import json
-
 import requests
-from flask import request
-
 from shared.response_helper import generate_response
 
 
 def send_get_request(url, headers):
     try:
-        import time
-        start_time = time.time()
         r = requests.get(url, headers=headers)
-        print("--- %s seconds ---" % (time.time() - start_time))
-        print(url)
-        # response_data = r.json()
-        # expected_keys = ['success', 'message', 'data', 'status_code']
-        # return generate_response(response_data['success'], response_data['message'], response_data['data'],
-        #                          response_data['status_code'])
-
         try:
             response_data = r.json()
             expected_keys = ['success', 'message', 'data', 'status_code']
@@ -29,7 +17,7 @@ def send_get_request(url, headers):
         except ValueError:
             return generate_response(False, "Invalid JSON response", None, 500)
     except requests.exceptions.RequestException as e:
-        return generate_response(False, "User service is currently unavailable", None, 503)
+        return generate_response(False, "Service is currently unavailable", None, 503)
 
 
 def send_get_request_with_params(url, headers, query_params):

@@ -1,25 +1,17 @@
 from flask import request
-from app import app
 from shared import request_helper
 
 
 def get_order(order_id):
-    url = "http://127.0.0.1:8001/api/order/" + str(order_id)
+    url = f"http://127.0.0.1:8001/api/order/{order_id}"
     headers = {"Content-Type": "application/json"}
     if request.headers.__contains__('Authorization'):
         headers["Authorization"] = request.headers['Authorization']
     return request_helper.send_get_request(url, headers)
 
-
-def find_user_ordered_product(user_id, product_id):
-    url = "http://127.0.0.1:8001/api/order/user_ordered_product/" + str(user_id)+"/"+str(product_id)
-    headers = {"Content-Type": "application/json"}
-    if request.headers.__contains__('Authorization'):
-        headers["Authorization"] = request.headers['Authorization']
-    return request_helper.send_get_request(url, headers)
 
 def change_order(order_id):
-    url = "http://127.0.0.1:8001/api/order/" + str(order_id)
+    url = f"http://127.0.0.1:8001/api/order/{order_id}"
     headers = {"Content-Type": "application/json"}
     if request.headers.__contains__('Authorization'):
         headers["Authorization"] = request.headers['Authorization']
@@ -28,9 +20,19 @@ def change_order(order_id):
 
 
 def delete_order(order_id):
-    url = "http://127.0.0.1:8001/api/order/" + str(order_id)
+    url = f"http://127.0.0.1:8001/api/order/{order_id}"
     headers = {"Content-Type": "application/json"}
+    if request.headers.__contains__('Authorization'):
+        headers["Authorization"] = request.headers['Authorization']
     return request_helper.send_delete_request(url, headers)
+
+
+def find_user_ordered_product(user_id, product_id):
+    url = "http://127.0.0.1:8001/api/order/user_ordered_product/" + str(user_id) + "/" + str(product_id)
+    headers = {"Content-Type": "application/json"}
+    if request.headers.__contains__('Authorization'):
+        headers["Authorization"] = request.headers['Authorization']
+    return request_helper.send_get_request(url, headers)
 
 
 def create_order():
@@ -108,12 +110,14 @@ def find_delivery_requests_by_order_id(order_id):
         headers["Authorization"] = request.headers['Authorization']
     return request_helper.send_get_request(url, headers)
 
+
 def find_delivery_requests_by_deliverer(deliverer_id):
     url = "http://127.0.0.1:8001/api/delivery_request/deliverer/" + str(deliverer_id)
     headers = {"Content-Type": "application/json"}
     if request.headers.__contains__('Authorization'):
         headers["Authorization"] = request.headers['Authorization']
     return request_helper.send_get_request(url, headers)
+
 
 def find_all_delivery_requests():
     url = "http://127.0.0.1:8001/api/delivery_requests"

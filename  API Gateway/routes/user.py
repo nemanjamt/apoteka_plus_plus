@@ -19,7 +19,6 @@ def get_user_info_basic():
 
 
 @app.route("/users", methods=['GET', 'POST'])
-@jwt_required_custom()
 def find_all_users():
     if request.method == 'GET':
         return user_service.get_users()
