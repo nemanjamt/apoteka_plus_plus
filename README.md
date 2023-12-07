@@ -1,3 +1,4 @@
+![image](https://github.com/nemanjamt/apoteka_plus_plus/assets/65918711/1a2198b5-e45f-454b-bb8d-1606824947e2)
 
 # APOTEKA++
 Veb aplikacija za pretraživanje, naručivanje i prodaju proizvoda iz apoteke zasnovana na mikroservisnoj arhitekturi.
